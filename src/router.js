@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import AppHome from './pages/AppHome.vue';
-import AppRestaurant from './pages/AppRestaurant.vue';
 import AppContacts from './pages/AppContacts.vue';
+import AppMenu from './pages/AppMenu.vue';
 import ErrorPage from './components/ErrorPage.vue';
 
 const router = createRouter({
@@ -14,9 +14,9 @@ const router = createRouter({
             component: AppHome
         },
         {
-            path: '/restaurants',
-            name: 'restaurants',
-            component: AppRestaurant
+            path: '/:slug/menu',
+            name: 'menu-restaurant',
+            component: AppMenu
         },
         {
             path: '/contacts',
@@ -24,7 +24,8 @@ const router = createRouter({
             component: AppContacts
         },
         {
-            path: '/:catchAll(.*)',
+            path: '/:patchMatch(.*)*',
+            name: 'error-name',
             component: ErrorPage
         },
     ]
