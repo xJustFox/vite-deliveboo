@@ -14,10 +14,6 @@ export default {
                     label: 'Home'
                 },
                 {
-                    name: 'restaurants',
-                    label: 'Ristoranti'
-                },
-                {
                     name: 'contacts',
                     label: 'Contatti'
                 }
