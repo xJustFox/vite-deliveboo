@@ -1,7 +1,13 @@
 <script>
+import AppTypologyCarousel from '../components/AppTypologyCarousel.vue';
+
 export default {
-    name: 'Home'
+    name: 'Home',
+    components:{
+        AppTypologyCarousel,
+    }
 }
+
 </script>
 
 <template lang="">
@@ -25,6 +31,11 @@ export default {
                 <img class="img-fluid" src="/public/img/group.png" alt="">
             </div>
         </div>
+
+        <!-- Typology Carousel -->
+        <section class="py-5">
+            <AppTypologyCarousel></AppTypologyCarousel>
+        </section>
     </div>
 </template>
 
