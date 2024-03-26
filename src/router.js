@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import AppHome from './components/pages/AppHome.vue';
-import AppRestaurant from './components/pages/AppRestaurant.vue';
-import AppContacts from './components/pages/AppContacts.vue';
+import AppHome from './pages/AppHome.vue';
+import AppRestaurant from './pages/AppRestaurant.vue';
+import AppContacts from './pages/AppContacts.vue';
 import ErrorPage from './components/ErrorPage.vue';
 
 const router = createRouter({
@@ -25,11 +25,11 @@ const router = createRouter({
         },
         {
             path: '/:catchAll(.*)',
-    component: ErrorPage
-          },
+            component: ErrorPage
+        },
     ]
 
- 
+
 });
 
 export default router;
