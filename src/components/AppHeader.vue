@@ -45,25 +45,25 @@ export default {
         background-color: transparent;
 
         .logo_deliveboo {
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
         }
 
         .text-orange {
             color: #DA643F;
-            font-size: 40px;
+            font-size: 30px;
         }
 
         .text-gold {
             color: #E1B137;
-            font-size: 40px;
+            font-size: 30px;
         }
 
         ul {
             a{
                 text-decoration: none;
                 color: #fff;
-                font-size: 27px;
+                font-size: 23px;
 
                 &:hover{
                     color: #DA643F;
@@ -73,7 +73,7 @@ export default {
 
         i {
             color: #fff;
-            font-size: 22px;
+            font-size: 20px;
 
             &:hover{
                 color: #DA643F;
