@@ -36,15 +36,15 @@ export default {
                     <div class="mt-5">
                         <h3 class="my_orange">Cosa serviamo</h3>
                     </div>
-                    <div  class="text-white super-ocean m">
-                        <h1>Il vostro partner preferito per le consegne</h1>
+                    <div  class="text-white super-ocean mb-5">
+                        <h1 class="my_title">Il vostro partner preferito per le consegne</h1>
                     </div>
                 </div>
         
                 <!-- Sezione cards -->
 
                 <!-- Prima card -->
-                <div class="col-4 text-center card_margin">
+                <div class="col-sm-12 col-md-4 text-center card_margin">
                     <img class="img-fluid" src="/public/img/Risorsa 2ai 1.png" alt="">
                     <div class="text-white super-ocean mt-4">
                         <h2>Consegna veloce</h2>
@@ -55,7 +55,7 @@ export default {
                 </div>
 
                 <!-- Seconda card -->
-                <div class="col-4 text-center card_margin">
+                <div class="col-sm-12 col-md-4 text-center card_margin">
                     <img class="img-fluid" src="/public/img/Risorsa 1ai 1.png" alt="">
                     <div class="text-white super-ocean mt-4">
                         <h2>Ordinare è facile</h2>
@@ -66,7 +66,7 @@ export default {
                 </div>
                 
                 <!-- Terza card -->
-                <div class="col-4 text-center card_margin">
+                <div class="col-sm-12 col-md-4 text-center card_margin">
                     <div class="img_container">
                         <img class="img-fluid" src="/public/img/Group 38.png" alt="">
                     </div>
@@ -94,15 +94,32 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 70%;
+        height: 60%;
     }
 
     img{
-        height: 70%;
+        height: 60%;
     }
 
     .card_margin{
-        margin-top: 110px;
+        margin-top: 80px;
+    }
+
+    .my_title{
+        font-size: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .img_container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 90%;
+        }
+
+        .card_margin{
+            margin-top: 0px;
+        }
     }
 }
 
