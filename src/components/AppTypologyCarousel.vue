@@ -10,9 +10,10 @@ export default {
         return {
             store,
             restaurants: [],
+            filteredRestaurants: [],
+            flagFiltered: false,
             typologies: [],
             breakpoints: {
-
                 376: {
                     itemsToShow: 2,
                     snapAlign: 'start',
@@ -43,23 +44,57 @@ export default {
         this.getTypologies();
     },
     methods: {
+        // Recupero le tipologie dei ristoranti e le assegno alla variabile typologies
         getTypologies() {
             axios.get(`${this.store.baseUrl}/api/typologies`).then(response => {
                 this.typologies = response.data.results;
             })
         },
-
+        // Recupero tutti i ristornati e gli assegno alla variabile restaurants
         getRestaurants() {
             axios.get(`${this.store.baseUrl}/api/restaurants`).then(response => {
                 this.restaurants = response.data.results;
             })
         },
+        // Recupero la tipologia che vuole l'utente 
+        searchRestaurants() {
+            this.flagFiltered = false;
+            let selectedTypes = [];
 
-        getRestaurantsTypology(slug) {
-            axios.get(`${this.store.baseUrl}/api/restaurants/typologies/${slug}`).then(response => {
-                this.restaurants = [];
-                this.restaurants = response.data.results;
-            })
+            let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach(function(checkbox) {
+                selectedTypes.push(checkbox.value);
+            });
+
+            let filtered = [];
+            
+            this.restaurants.filter(function(restaurant) {
+                return selectedTypes.every(function(type) {
+
+                    let typologies = restaurant.typologies;
+
+                    typologies.forEach(element => {
+                        if (element.slug == type) {
+                            return filtered.push(restaurant);
+                        }
+                    });
+                });
+            });
+
+            if (selectedTypes.length > 0) {
+                this.flagFiltered = true;
+            }
+
+            // richiamo la funzione per popolare l'array filtrato
+            this.displayResults(filtered);
+        },
+        displayResults(restaurants) {
+            this.filteredRestaurants = [];
+            
+            // Assegno all'array filtrato i ristoranti con la tipologia scelta dall'utente
+            restaurants.forEach((restaurant) => { 
+                this.filteredRestaurants.push(restaurant);
+            });
         },
         next() {
             this.$refs.carousel.next()
@@ -82,27 +117,30 @@ export default {
             </div>
 
             <div class="col-12 col-md-3 col-lg-2">
-                <ul class="list-unstyled typology-list d-flex d-md-block">
+                <ul class="list-unstyled typology-list d-flex d-md-block m-0">
                     <li v-for="(typology, index) in typologies" :key="index">
                         <label class="container">
-                            <input type="checkbox" />
+                            <input type="checkbox" :value="typology.slug" @click="searchRestaurants()"/>
                             <div class="checkmark">
                               <p class="No name">{{typology.name}}</p>
                               <p class="Yes name">{{typology.name}}</p>
                             </div>
-                          </label>
+                        </label>
                     </li>
                 </ul>
             </div>
 
-            <div class="col-12 col-md-9 col-lg-10 h-300 my-2">
+            <div class="col-12 col-md-9 col-lg-10 h-320 my-2">
                 <Carousel ref="carousel" :breakpoints="breakpoints" >
-                    <Slide v-for="restaurant in restaurants" :key="restaurant">
+                    <Slide v-for="restaurant in (flagFiltered == true ? filteredRestaurants : restaurants)" :key="restaurant">
                         <div class="card">
                             <div class="content">
                               <div class="back">
                                 <div class="back-content" :style="{ backgroundImage: 'url(' + restaurant.main_image + ')' }">
-                                    <span class="super-ocean">{{ restaurant.name }}</span>
+                                    <div class="bg-opacity w-100">
+                                        <div class="super-ocean">{{ restaurant.name }}</div>
+                                        <div class="badge bg-orange mb-1 me-1" v-for="(item, index) in restaurant.typologies" :key="index">{{item.name}}</div>
+                                    </div>
                                     <span class="bg-opacity position-absolute">
                                     </span>
                                 </div>
@@ -134,7 +172,9 @@ export default {
                     </Slide>
                 </Carousel>
 
-                <div v-if="restaurants.length <= 0" class="d-flex justify-content-center align-items-center h-100 super-ocean">Non ci sono ristoranti con questa categoria</div>
+                <div v-if="restaurants.length <= 0 && flagFiltered == false || filteredRestaurants.length <= 0 && flagFiltered == true " class="d-flex justify-content-center align-items-center h-100 super-ocean ">
+                    <span class="carouselError">Non ci sono ristoranti con questa categoria</span>
+                </div>
             </div>
         </div>
 
@@ -142,14 +182,21 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.h-300 {
-    height: 300px;
+.h-320 {
+    height: 320px;
+}
+
+.bg-orange{
+    background-color: #DA643F;
+}
+
+.bg-opacity{
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .super-ocean {
     color: #DA643F;
     font-size: 2rem;
-    background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
 
     -webkit-text-stroke-width: 0.5px;
@@ -191,7 +238,7 @@ export default {
 }
 
 .typology-list {
-    max-height: 300px;
+    max-height: 320px;
     overflow-x: scroll;
 
     li {
@@ -362,7 +409,7 @@ export default {
     background-color: transparent;
     overflow: visible;
     width: 190px;
-    height: 300px;
+    height: 320px;
 }
 
 .content {
