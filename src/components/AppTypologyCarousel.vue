@@ -147,8 +147,10 @@ export default {
     color: #DA643F;
     font-size: 2rem;
     z-index: 99;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
 
-    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-width: 0.5px;
     -webkit-text-stroke-color: black;
 }
 
@@ -272,7 +274,7 @@ export default {
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     gap: 30px;
 }
