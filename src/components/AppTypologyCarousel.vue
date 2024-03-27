@@ -83,8 +83,15 @@ export default {
 
             <div class="col-12 col-md-3 col-lg-2">
                 <ul class="list-unstyled typology-list d-flex d-md-block">
-                    <li @click="getRestaurants()">Tutti</li>
-                    <li v-for="(typology, index) in typologies" :key="index" @click="getRestaurantsTypology(typology.slug)">{{typology.name}}</li>
+                    <li v-for="(typology, index) in typologies" :key="index">
+                        <label class="container">
+                            <input type="checkbox" />
+                            <div class="checkmark">
+                              <p class="No name">{{typology.name}}</p>
+                              <p class="Yes name">{{typology.name}}</p>
+                            </div>
+                          </label>
+                    </li>
                 </ul>
             </div>
 
@@ -112,17 +119,13 @@ export default {
                                 </div>
                                 
                                 <div class="front-content">
-                                <small class="badge">
-                                    <div>{{ restaurant.name }}</div>
-                                    <div>{{ restaurant.address }}</div> 
-                                </small>
-                                <div class="description">
-                                    <router-link class="btn-menu" :to="{ name: 'menu-restaurant', params: {slug: restaurant.slug} }">Menù</router-link>
-                                    <div class="title text-center">
-                                        <div>
-                                        </div>
+                                    <small class="badge">
+                                        <div>{{ restaurant.name }}</div>
+                                        <div>{{ restaurant.address }}</div> 
+                                    </small>
+                                    <div class="description">
+                                        <router-link class="btn-menu" :to="{ name: 'menu-restaurant', params: {slug: restaurant.slug} }">Menù</router-link>
                                     </div>
-                                </div>
                                 </div>
                                 
                               </div>
@@ -146,7 +149,6 @@ export default {
 .super-ocean {
     color: #DA643F;
     font-size: 2rem;
-    z-index: 99;
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
 
@@ -154,7 +156,7 @@ export default {
     -webkit-text-stroke-color: black;
 }
 
-.btn-menu{
+.btn-menu {
     width: 100% !important;
     text-decoration: none;
     color: white;
@@ -163,8 +165,8 @@ export default {
     border-radius: 5px;
     padding: 5px 0;
 
-    &:hover{
-        transform:scale(1.1);
+    &:hover {
+        transform: scale(1.1);
     }
 }
 
@@ -195,16 +197,7 @@ export default {
     li {
         white-space: nowrap;
         text-align: center;
-        font-size: large;
-        padding: 5px 10px;
         margin: 10px;
-        border-radius: 10px;
-        background-color: #DA643F;
-
-        &:hover {
-            cursor: pointer;
-            transform: scale(1.1);
-        }
 
     }
 
@@ -212,6 +205,155 @@ export default {
         overflow-y: scroll;
         overflow-x: hidden;
     }
+
+    .container {
+        padding: 0;
+        font-size: larger;
+        --UnChacked-color: #DA643F;
+        --chacked-color: #421f14;
+        --font-color: white;
+        --chacked-font-color: var(--font-color);
+        --icon-size: 1.5em;
+        --anim-time: 0.2s;
+        --anim-scale: 0.1;
+        --base-radius: 0.8em;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        fill: var(--font-color);
+        color: var(--font-color);
+    }
+
+    /* Hide the default checkbox */
+    .container input {
+        display: none;
+    }
+
+    /* Base custom checkbox */
+    .checkmark {
+        background: var(--UnChacked-color);
+        border-radius: var(--base-radius);
+        width: 100%;
+        padding: 0px 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .name {
+        margin: 0 0.25em;
+    }
+
+    .Yes {
+        width: 0;
+    }
+
+    .name.Yes {
+        display: none;
+    }
+
+    /* action custom checkbox */
+    .container:hover .checkmark,
+    .container:hover .icon,
+    .container:hover .name {
+        transform: scale(calc(1 + var(--anim-scale)));
+    }
+
+    .container:active .checkmark,
+    .container:active .icon,
+    .container:active .name {
+        transform: scale(calc(1 - var(--anim-scale) / 2));
+        border-radius: calc(var(--base-radius) * 2);
+    }
+
+    .checkmark::before {
+        content: "";
+        opacity: 0.5;
+        transform: scale(1);
+        border-radius: var(--base-radius);
+        position: absolute;
+        box-sizing: border-box;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .checkmark:hover:before {
+        background-color: hsla(0, 0%, 50%, 0.2);
+    }
+
+    .container input:checked+.checkmark:before {
+        animation: boon calc(var(--anim-time)) ease;
+        animation-delay: calc(var(--anim-time) / 2);
+    }
+
+    /* When the checkbox is checked*/
+    .container input:checked+.checkmark {
+        --UnChacked-color: var(--chacked-color);
+        fill: var(--chacked-font-color);
+        color: var(--chacked-font-color);
+    }
+
+    .container input:checked~.checkmark .No {
+        width: 0;
+    }
+
+    .container input:checked~.checkmark .name.No {
+        display: none;
+    }
+
+    .container input:checked~.checkmark .Yes {
+        width: var(--icon-size);
+    }
+
+    .container input:checked~.checkmark .name.Yes {
+        width: auto;
+        display: unset;
+    }
+
+    /*Animation*/
+    .container,
+    .checkmark,
+    .checkmark:after,
+    .icon,
+    .checkmark .name {
+        transition: all var(--anim-time);
+    }
+
+    /*Unuse*/
+    @keyframes icon-rot {
+        50% {
+            transform: rotateZ(180deg) scale(calc(1 - var(--anim-scale)));
+            border-radius: 1em;
+        }
+
+        to {
+            transform: rotate(360deg);
+            border-radius: var(--base-radius);
+        }
+    }
+
+    /*Unuse*/
+    @keyframes boo {
+        80% {
+            transform: scale(1.4);
+        }
+
+        99% {
+            transform: scale(1.7);
+            border: 2px solid var(--UnChacked-color);
+        }
+
+        to {
+            transform: scale(0);
+        }
+    }
+
 }
 
 .card {
