@@ -62,39 +62,25 @@ export default {
             let selectedTypes = [];
 
             let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-            checkboxes.forEach(function(checkbox) {
+            checkboxes.forEach(function (checkbox) {
                 selectedTypes.push(checkbox.value);
             });
 
-            let filtered = [];
-            
-            this.restaurants.filter(function(restaurant) {
-                return selectedTypes.every(function(type) {
+            if (selectedTypes.length === 0) {
+                this.filteredRestaurants = [];
+                return; // Esci dalla funzione se nessuna tipologia è stata selezionata
+            }
 
-                    let typologies = restaurant.typologies;
-
-                    typologies.forEach(element => {
-                        if (element.slug == type) {
-                            return filtered.push(restaurant);
-                        }
+            this.filteredRestaurants = this.restaurants.filter(function (restaurant) {
+                return selectedTypes.every(function (type) {
+                    // Verifica se ogni tipologia selezionata è presente nel ristorante
+                    return restaurant.typologies.some(function (typology) {
+                        return typology.slug === type;
                     });
                 });
             });
 
-            if (selectedTypes.length > 0) {
-                this.flagFiltered = true;
-            }
-
-            // richiamo la funzione per popolare l'array filtrato
-            this.displayResults(filtered);
-        },
-        displayResults(restaurants) {
-            this.filteredRestaurants = [];
-            
-            // Assegno all'array filtrato i ristoranti con la tipologia scelta dall'utente
-            restaurants.forEach((restaurant) => { 
-                this.filteredRestaurants.push(restaurant);
-            });
+            this.flagFiltered = true;
         },
         next() {
             this.$refs.carousel.next()
