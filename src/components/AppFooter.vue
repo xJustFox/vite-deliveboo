@@ -29,7 +29,7 @@ export default {
 </script>
 <template>
      <footer>
-          <div class="bg-orange">
+          
 
                <div class="container-fluid px-4 py-2 d-flex ">
 
@@ -79,13 +79,14 @@ export default {
 
                     
                </div>
-          </div>
      </footer>
 </template>
 
 <style lang="scss" scoped>
 footer {
-     background: transparent;
+     background-color: #e45327;
+     
+     
 
      .logo_deliveboo {
           width: 100px;
@@ -93,9 +94,7 @@ footer {
           filter: brightness(0) invert(1);
      }
 
-     .bg-orange {
-          background-color: #e45327;
-     }
+    
      .col-8{
           position: relative;
 

@@ -24,9 +24,17 @@ export default {
 </script>
 <template lang="">
   <AppHeader/>
-  <router-view></router-view>
+  <div class="main">
+
+    <router-view></router-view>
+  </div>
   <AppFooter/>
 </template>
 <style lang="scss">
   @use './styles/generals.scss' as *;
+
+  .main{
+    min-height: 100vh;
+  }
+
 </style>
