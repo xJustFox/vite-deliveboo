@@ -1,10 +1,12 @@
 <script>
 import AppTypologyCarousel from '../components/AppTypologyCarousel.vue';
+import AppPhone from '../components/AppPhone.vue';
 
 export default {
     name: 'Home',
     components:{
         AppTypologyCarousel,
+        AppPhone
     }
 }
 
@@ -89,6 +91,11 @@ export default {
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Sezione Phone -->
+        <section class="pt-5">
+            <AppPhone/>
         </section>
     </div>
 </template>
