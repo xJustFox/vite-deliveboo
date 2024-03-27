@@ -60,6 +60,9 @@ export default {
                                    <ul class="list-unstyled">
                                         <li>menu</li>
                                         <li>carrello</li>
+                                        <li>Terms&Conditions</li>
+                                        <li>Privacy Policy</li>
+                                        <li>Development</li>
                                    </ul>
                               </li>
                               <li class="px-2">
@@ -70,7 +73,8 @@ export default {
                                         <li>email</li>
                                         <li>cellulare</li>
                                         <li>fax</li>
-                                        <li>piccione</li>
+                                        <li>Location</li>
+                                        <li>About Us</li>
                                    </ul>
                               </li>
                               
