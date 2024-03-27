@@ -31,26 +31,26 @@ export default {
      <footer>
           
 
-               <div class="container-fluid px-4 py-2 d-flex ">
+               <div class="container-fluid px-4 py-2 d-flex flex-wrap">
 
                     <!-- Logo -->
-                    <div class="d-flex col-4 align-items-center p-3 flex-wrap">
-                         <div class="col-12 d-flex col-4 align-items-center">
+                    <div class="d-flex col-12 col-lg-4 align-items-center p-3 flex-wrap">
+                         <div class="col-12 d-flex justify-content-center align-items-center">
 
                               <a href="/">
                                    <img class="logo_deliveboo me-2" src="../../public/img/Logo.png" alt="">
                               </a>
                               <a class="text-decoration-none text-white super-ocean" href="/">{{ 'DeliveBoo' }}</a>
                          </div>
-                         
-                         <div class="col-12 py-4 fw-bolder">
+                         <div class="col-12 py-3 py-md-1 fw-bolder d-flex justify-content-center align-items-center">
                               <p>Cibo sano per una Vita sana</p>
                          </div>
+                         
                     </div>
                     
 
                     <!-- Center Links -->
-                    <div class="col-8 p-5">
+                    <div class="col p-5">
                          <ul class="d-flex align-items-center list-unstyled  justify-content-evenly">
                               <!-- Home Link -->
                               <li class="px-2">
