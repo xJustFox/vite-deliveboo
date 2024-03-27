@@ -86,8 +86,8 @@ header {
     background: transparent;
 
     .logo_deliveboo {
-        width: 50px;
-        height: 50px;
+        width: 80px;
+        height: 80px;
     }
 
     .bg-darkgray {
@@ -96,17 +96,17 @@ header {
 
     .text-orange {
         color: #DA643F;
-        font-size: 30px;
+        font-size: 40px;
     }
 
     .text-gold {
         color: #E1B137;
-        font-size: 30px;
+        font-size: 40px;
     }
 
     .my-nav-link {
-        font-size: 23px;
-        padding-right: 10px;
+        font-size: 43px;
+        padding-right: 20px;
         color: white;
         text-decoration: none;
 
@@ -119,7 +119,7 @@ header {
         text-decoration: none;
         color: white;
         i{
-            font-size: 25px 
+            font-size: 35px 
         }
     }
 
