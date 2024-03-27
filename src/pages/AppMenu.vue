@@ -43,13 +43,15 @@ export default {
             </div>
             <div class="col-12 col-md-4 col-lg-3 my-2" v-for="dish in dishes" :key="dish.id">
                 <div class="card h-100">
-                    <div class="card__img">
-                        <div v-if="dish.image != null">
+                    <div>
+                        <div v-if="dish.image != null" class="text-center">
                             <img :src="dish.image" alt="">
                         </div>
+                        <div class="card__title mt-5">
+                            <h2>{{dish.name}}</h2>
+                        </div>
+                        <div class="card__subtitle mt-3">{{dish.description}}</div>
                     </div>
-                    <div class="card__title">{{dish.name}}</div>
-                    <div class="card__subtitle">{{dish.description}}</div>
                     <div class="card__wrapper">
                         <div class="card__price text-center">{{dish.price}}$</div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
@@ -79,28 +81,15 @@ export default {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 20px;
 
-    .card__img {
-        width: 170px;
-        height: 170px;
-        background: linear-gradient(90deg, #fff8f79a, #f0f7dfa2);
-        border-radius: 100%;
-        margin-inline: auto;
-        position: relative;
-
-        img {
-            height: 150px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+    img {
+        height: 150px;
     }
 
     .card__title {
         font-weight: 600;
-        font-size: 25px;
         color: var(--main-color);
     }
 
