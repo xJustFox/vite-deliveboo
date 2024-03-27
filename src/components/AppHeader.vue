@@ -44,7 +44,7 @@ export default {
             <div class="d-none d-md-block">
                 <ul class="d-flex align-items-center list-unstyled h-100">
                     <!-- Home Link -->
-                    <li class="px-2" v-for="link, index in navLinks">
+                    <li v-for="link, index in navLinks">
                         <router-link :class="this.flagActive == index ? 'active-link' : ''" class="my-nav-link super-ocean" :to="{ name: link.name }" @click="getActiveLink(index)">{{ link.label }}</router-link>
                     </li>
                 </ul>
@@ -86,8 +86,8 @@ header {
     background: transparent;
 
     .logo_deliveboo {
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
     }
 
     .bg-darkgray {
@@ -96,17 +96,17 @@ header {
 
     .text-orange {
         color: #DA643F;
-        font-size: 40px;
+        font-size: 30px;
     }
 
     .text-gold {
         color: #E1B137;
-        font-size: 40px;
+        font-size: 30px;
     }
 
     .my-nav-link {
-        font-size: 43px;
-        padding-right: 20px;
+        font-size: 23px;
+        padding-right: 10px;
         color: white;
         text-decoration: none;
 
@@ -119,7 +119,7 @@ header {
         text-decoration: none;
         color: white;
         i{
-            font-size: 35px 
+            font-size: 25px 
         }
     }
 
