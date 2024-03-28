@@ -8,6 +8,7 @@ export default {
         return {
             store,
             dishes: [],
+            cart: [],
         }
     },
     created() {
@@ -17,6 +18,11 @@ export default {
         getMenu() {
             axios.get(`${this.store.baseUrl}/api/menu/${this.$route.params.slug}`).then(response => {
                 this.dishes = response.data.results;
+
+                // aggiungo il campo della quantità da aggiungere settato su 1
+                this.dishes.forEach(element => {
+                    element.quantityToAdd = 1
+                });
             })
         },
         getImage() {
@@ -39,8 +45,14 @@ export default {
     <div class="container-lg mb-2">
         <div class="row">
             <div class="col-12">
+                <h2>Carrello</h2>
+                
+            </div>
+            
+            <div class="col-12">
                 <h2 class="super-ocean">Menù</h2>
             </div>
+
             <div class="col-12 col-md-4 col-lg-3 my-2" v-for="dish in dishes" :key="dish.id">
                 <div class="card h-100">
                     <div>
@@ -60,7 +72,7 @@ export default {
                                 <div class="card__counter-score">0</div>
                                 <button class="card__btn card__btn-plus">+</button>
                             </div>
-                            <button class="add_btn btn">Aggiungi</button>
+                            <button class="add_btn btn" @click="addToCart(product)">Aggiungi</button>
                         </div>
                     </div>
                 </div>
