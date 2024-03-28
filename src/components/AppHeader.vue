@@ -1,134 +1,129 @@
 <script>
-
+import AppCart from './AppCart.vue'
 import { store } from '../store.js'
 
 export default {
-    name: 'AppHeader',
-    data() {
-        return {
-            store,
-            flagActive: 0,
-            navLinks: [
-                {
-                    name: 'home',
-                    label: 'Home'
-                },
-                {
-                    name: 'contacts',
-                    label: 'Contatti'
-                }
-            ]
+  name: 'AppHeader',
+  components: {
+    AppCart,
+  },
+  data() {
+    return {
+      store,
+      flagActive: 0,
+      navLinks: [
+        {
+          name: 'home',
+          label: 'Home'
+        },
+        {
+          name: 'contacts',
+          label: 'Contatti'
         }
-    },
-    methods:{
-        getActiveLink(index){
-            this.flagActive = index
-        }
+      ]
     }
+  },
+  methods: {
+    getActiveLink(index) {
+      this.flagActive = index
+    }
+  }
 }
 </script>
 <template>
-    <header>
-        <div class="container-fluid px-4 py-2 d-flex justify-content-between">
+  <header>
+    <div class="container-fluid px-md-4 py-2 d-flex justify-content-between">
 
-            <!-- Logo -->
-            <div class="d-flex align-items-center super-ocean">
-                <a href="/">
-                    <img class="logo_deliveboo me-2" src="../../public/img/Logo.png" alt="">
-                </a>
-                <a class="text-decoration-none text-orange" href="/">{{ 'Delive' }}</a>
-                <a class="text-decoration-none text-gold" href="/">{{ 'Boo' }}</a>
-            </div>
+      <!-- Logo -->
+      <div class="d-flex align-items-center super-ocean">
+        <a href="/">
+          <img class="logo_deliveboo me-2" src="../../public/img/Logo.png" alt="">
+        </a>
+        <a class="text-decoration-none text-orange" href="/">{{ 'Delive' }}</a>
+        <a class="text-decoration-none text-gold" href="/">{{ 'Boo' }}</a>
+      </div>
 
-            <!-- Center Links -->
-            <div class="d-none d-md-block">
-                <ul class="d-flex align-items-center list-unstyled h-100">
-                    <!-- Home Link -->
-                    <li v-for="link, index in navLinks">
-                        <router-link :class="this.flagActive == index ? 'active-link' : ''" class="my-nav-link super-ocean" :to="{ name: link.name }" @click="getActiveLink(index)">{{ link.label }}</router-link>
-                    </li>
+      <!-- Center Links -->
+      <div class="d-none d-md-block">
+        <ul class="d-flex align-items-center list-unstyled h-100">
+          <!-- Home Link -->
+          <li v-for="link, index in navLinks">
+            <router-link :class="this.flagActive == index ? 'active-link' : ''" class="my-nav-link super-ocean"
+              :to="{ name: link.name }" @click="getActiveLink(index)">{{ link.label }}</router-link>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right Menu -->
+      <div class="d-flex align-items-center">
+        <AppCart></AppCart>
+
+        <ul class="d-flex d-md-none align-items-center list-unstyled m-0 ps-3">
+          <!-- Authentication Links -->
+          <li>
+            <label class="popup">
+              <input type="checkbox">
+              <div class="burger" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <nav class="popup-window">
+                <ul>
+                  <li class="px-2" v-for="link, index in navLinks">
+                    <router-link :class="this.flagActive == index ? 'active-link' : ''" class="my-nav-link super-ocean"
+                      :to="{ name: link.name }" @click="getActiveLink(index)">{{ link.label }}</router-link>
+                  </li>
                 </ul>
-            </div>
-
-            <!-- Right Menu -->
-            <div class="d-flex align-items-center">
-                <a class="shopping-cart" href="">
-                    <i class="fa-solid fa-cart-shopping fs-xl"></i>
-                </a>
-
-                <ul class="d-flex align-items-center list-unstyled m-0 ps-3">
-                    <!-- Authentication Links -->
-                    <li class="d-md-none">
-                      <label class="popup">
-                        <input type="checkbox">
-                        <div class="burger" tabindex="0">
-                          <span></span>
-                          <span></span>
-                          <span></span>
-                        </div>
-                        <nav class="popup-window">
-                          <ul>
-                            <li class="px-2" v-for="link, index in navLinks">
-                                <router-link :class="this.flagActive == index ? 'active-link' : ''" class="my-nav-link super-ocean" :to="{ name: link.name }" @click="getActiveLink(index)">{{ link.label }}</router-link>
-                            </li>
-                          </ul>
-                        </nav>
-                      </label>
-                    </li>
-                  </ul>
-            </div>
-        </div>
-    </header>
+              </nav>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
 </template>
 
 <style lang="scss" scoped>
 header {
-    background: transparent;
+  background: transparent;
 
-    .logo_deliveboo {
-        width: 50px;
-        height: 50px;
+  .logo_deliveboo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .bg-darkgray {
+    background-image: linear-gradient(13deg, #181818, #181818, #181818, #DA643F);
+  }
+
+  .text-orange {
+    color: #DA643F;
+    font-size: 30px;
+  }
+
+  .text-gold {
+    color: #E1B137;
+    font-size: 30px;
+  }
+
+  .my-nav-link {
+    font-size: 23px;
+    padding-right: 10px;
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      color: #DA643F;
     }
+  }
 
-    .bg-darkgray {
-        background-image: linear-gradient(13deg, #181818, #181818, #181818, #DA643F);
-    }
-
-    .text-orange {
-        color: #DA643F;
-        font-size: 30px;
-    }
-
-    .text-gold {
-        color: #E1B137;
-        font-size: 30px;
-    }
-
-    .my-nav-link {
-        font-size: 23px;
-        padding-right: 10px;
-        color: white;
-        text-decoration: none;
-
-        &:hover {
-            color: #DA643F;
-        }
-    }
-
-    .shopping-cart{
-        text-decoration: none;
-        color: white;
-        i{
-            font-size: 25px 
-        }
-    }
-
-    .active-link {
-        color: #DA643F;
-    }
+  .active-link {
+    color: #DA643F;
+  }
 
 
-    // HAMBURGER-BUTTON
+  // HAMBURGER-BUTTON
 
   .popup {
     --burger-line-width: 1.125em;
