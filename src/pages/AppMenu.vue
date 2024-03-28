@@ -53,7 +53,7 @@ export default {
                         <div class="card__subtitle mt-3">{{dish.description}}</div>
                     </div>
                     <div class="card__wrapper">
-                        <div class="card__price text-center">{{dish.price}}$</div>
+                        <div class="card__price text-center">{{dish.price}}€</div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="card__counter">
                                 <button class="card__btn">-</button>
