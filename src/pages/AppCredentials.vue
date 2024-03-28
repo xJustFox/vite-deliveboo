@@ -104,7 +104,7 @@ export default {
                   <label for="phone"></label>
                 </div>
 
-                <input type="submit" value="Iscriviti" class="sign-btn" />
+                <input type="submit" value="Prosegui al pagamento" class="sign-btn" />
               </div>
             </form>
           </div>
