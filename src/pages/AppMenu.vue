@@ -24,17 +24,6 @@ export default {
                 });
             })
         },
-        getImage() {
-            let image;
-            if (this.dishes.image != null) {
-                image = `${this.store.baseUrl}/storage/${this.dishes.image}`;
-            }
-            else {
-                image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
-            }
-            
-            return image;
-        },
         // Incrementa la quantità del piatto
         incrementQuantity(dish) {
             dish.quantityToAdd++;
@@ -82,7 +71,6 @@ export default {
 
             this.store.getTotalPrice();
         },
-
         // Funzione per mostrare il modale di errore
         showErrorModal(message) {
             // Seleziona l'elemento con l'id errorMessage e imposta il testo del messaggio di errore
@@ -97,16 +85,29 @@ export default {
                 errorModalElement.style.display = 'block';
             }
         },
-
         closeErrorModal() {
             const errorModalElement = document.getElementById('errorModal')
             errorModalElement.style.display = 'none';
         },
-
         // Funzione per salvare il carrello nel localStorage
         saveCart() {
             localStorage.setItem('cart', JSON.stringify(this.store.cart));
         },
+        getImage(img) {
+            let image;
+
+            if (img != null && img.includes('https') == false || img.includes('http') == false) {
+                image = `${this.store.baseUrl}/storage/${img}`;
+            }
+            else if (img.includes('https')){
+                image = img;
+            } 
+            else {
+                image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
+            }
+
+            return image;
+        }
     },
 
 }
@@ -119,11 +120,11 @@ export default {
                 <h2 class="super-ocean">Menù</h2>
             </div>
 
-            <div class="col-12 col-md-4 col-lg-3 my-2" v-for="dish in dishes" :key="dish.id">
+            <div  class="col-12 col-md-6 col-lg-4 my-2" v-for="dish in dishes" :key="dish.id">
                 <div class="card h-100">
                     <div>
                         <div v-if="dish.image != null" class="text-center">
-                            <img :src="dish.image" alt="">
+                            <img class="img-fluid" :src="getImage(dish.image)" alt="">
                         </div>
                         <div class="card__title mt-5">
                             <h2>{{dish.name}}</h2>
@@ -171,7 +172,6 @@ export default {
 .card {
     --main-color: #fff;
     --bg-color: rgba(255, 255, 255, 0.05);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 20px;
     background: var(--bg-color);
     border-radius: 20px;
@@ -194,6 +194,10 @@ export default {
         font-size: 15px;
         color: var(--main-color);
         letter-spacing: 0.5px;
+        max-height: 95px;
+        overflow: hidden;
+        overflow-y: auto;
+        padding-right: 5px;
     }
 
     .card__price {

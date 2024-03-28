@@ -95,9 +95,9 @@ export default {
                             <div>Prezzo: {{ getPriceProduct(item.price, item.quantity)}} €</div>
                             <!-- INPUT NUMBER SPAN -->
                             <div class="counter">
-                                <span class="min" @click="decrementQuantity(item)">-</span>
+                                <span class="min" @click="decrementQuantity(item)"><i class="fa-solid fa-minus"></i></span>
                                 <span class="num">{{ item.quantity }}</span>
-                                <span class="plus" @click="incrementQuantity(item)">+</span>
+                                <span class="plus" @click="incrementQuantity(item)"><i class="fa-solid fa-plus"></i></span>
                             </div>
 
                             <div class="trash" @click="removeFromCart(index)"><i class="fa-solid fa-trash"></i></div>
@@ -173,15 +173,19 @@ export default {
         .num,
         .plus{
             width: calc(100% / 3);
-            padding: 5px;
-            font-size: 20px;
+            padding: 5px 0px;
+            font-size: 15px;
             text-align: center;
+
+            i{
+                vertical-align: middle;
+            }
         }
 
         .min:hover,
         .plus:hover{
+            background-color: #96442c;
             cursor: pointer;
-            color: rgb(150, 107, 0);
         }
     }
 
