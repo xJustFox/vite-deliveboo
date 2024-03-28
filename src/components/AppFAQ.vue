@@ -134,7 +134,7 @@ input {
     max-height: 0;
     padding: 0 1em;
     color: #fff;
-    background: #DA643F;
+    background: #2e2e2e;
     transition: all .35s;
   }
   &-close {
