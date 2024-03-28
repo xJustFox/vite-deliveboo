@@ -48,6 +48,7 @@ export default {
         getTypologies() {
             axios.get(`${this.store.baseUrl}/api/typologies`).then(response => {
                 this.typologies = response.data.results;
+                this.typologies = this.typologies.sort((a, b) => a.name.localeCompare(b.name))
             })
         },
         // Recupero tutti i ristornati e gli assegno alla variabile restaurants
@@ -81,6 +82,21 @@ export default {
             });
 
             this.flagFiltered = true;
+        },
+        getImage(img) {
+            let image;
+
+            if (img != null && img.includes('https') == false) {
+                image = `${this.store.baseUrl}/storage/${img}`;
+            }
+            else if (img.includes('https')){
+                image = img;
+            } 
+            else {
+                image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
+            }
+
+            return image;
         },
         next() {
             this.$refs.carousel.next()
@@ -122,7 +138,7 @@ export default {
                         <div class="card">
                             <div class="content">
                               <div class="back">
-                                <div class="back-content" :style="{ backgroundImage: 'url(' + restaurant.main_image + ')' }">
+                                <div class="back-content" :style="{ backgroundImage: 'url(' + getImage(restaurant.main_image) + ')' }">
                                     <div class="bg-opacity w-100">
                                         <div class="super-ocean">{{ restaurant.name }}</div>
                                         <div class="badge bg-orange mb-1 me-1" v-for="(item, index) in restaurant.typologies" :key="index">{{item.name}}</div>
