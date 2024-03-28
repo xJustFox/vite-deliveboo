@@ -4,6 +4,7 @@ import AppHome from './pages/AppHome.vue';
 import AppContacts from './pages/AppContacts.vue';
 import AppMenu from './pages/AppMenu.vue';
 import ErrorPage from './components/ErrorPage.vue';
+import PaymentPage from './pages/PaymentPage.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,6 +23,11 @@ const router = createRouter({
             path: '/contacts',
             name: 'contacts',
             component: AppContacts
+        },
+        {
+            path: '/payments',
+            name: 'payments',
+            component: PaymentPage
         },
         {
             path: '/:patchMatch(.*)*',
