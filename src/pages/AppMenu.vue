@@ -38,13 +38,13 @@ export default {
         // Funzionamento Cart
         addToCart(product) {
             if (!product) {
-                alert('Seleziona un prodotto.');
+                this.showErrorModal('Seleziona un prodotto.');
                 return;
             }
 
             // Controlla se la quantità è valida
             if (product.quantityToAdd <= 0) {
-                alert('Inserisci una quantità valida.');
+                this.showErrorModal('Inserisci una quantità valida.');
                 return;
             }
 
@@ -67,12 +67,32 @@ export default {
 
                 this.saveCart(); // Salva il carrello dopo l'aggiunta del prodotto
             } else {
-                alert('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello.');
+                this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello.');
             }
 
             this.store.getTotalPrice();
         },
-        
+
+        // Funzione per mostrare il modale di errore
+        showErrorModal(message) {
+            // Seleziona l'elemento con l'id errorMessage e imposta il testo del messaggio di errore
+            const errorMessageElement = document.getElementById('errorMessage');
+            if (errorMessageElement) {
+                errorMessageElement.textContent = message;
+            }
+            
+            const errorModalElement = document.getElementById('errorModal');
+            // Seleziona l'elemento con l'id errorModal e mostra il modale di errore
+            if (errorModalElement) {
+                errorModalElement.style.display = 'block';
+            }
+        },
+
+        closeErrorModal(){
+            const errorModalElement = document.getElementById('errorModal')
+            errorModalElement.style.display = 'none';
+        },
+
         // Funzione per salvare il carrello nel localStorage
         saveCart() {
             localStorage.setItem('cart', JSON.stringify(this.store.cart));
@@ -111,6 +131,20 @@ export default {
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- ERROR MODAL -->
+    <div class="modal" id="errorModal" style="display: none;" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title fs-3 super-ocean">Errore</h5>
+              <button type="button" class="btn-close" @click="closeErrorModal()"></button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage">Messaggio di errore</p>
+            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -158,4 +192,25 @@ export default {
         border-radius: 50px;
     }
 }
+
+#errorModal {
+    .modal-content {
+      backdrop-filter: blur(25px);
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+  
+      .super-ocean {
+        font-size: 25px;
+        color: #DA643F;
+      }
+  
+      .modal-header {
+        border: 0;
+      }
+  
+      .modal-body {
+        padding: 5px 16px;
+      }
+    }
+  }
 </style>
