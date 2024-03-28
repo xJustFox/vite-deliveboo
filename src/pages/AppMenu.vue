@@ -14,6 +14,9 @@ export default {
     created() {
         this.getMenu();
     },
+    mounted() {
+        this.loadCart();
+    },
     methods: {
         getMenu() {
             axios.get(`${this.store.baseUrl}/api/menu/${this.$route.params.slug}`).then(response => {
@@ -35,7 +38,56 @@ export default {
             }
 
             return image;
-        }
+        },
+        // Funzionamento Cart
+        addToCart(product) {
+            if (!product) {
+                alert('Seleziona un prodotto.');
+                return;
+            }
+
+            // Controlla se la quantità è valida
+            if (product.quantityToAdd <= 0) {
+                alert('Inserisci una quantità valida.');
+                return;
+            }
+
+            // Controlla se il carrello è vuoto o se il ristorante del prodotto corrisponde al ristorante degli altri elementi nel carrello
+            if (this.cart.length === 0 || this.cart[0].restaurant.slug === product.restaurant.slug) {
+                let found = false;
+
+                // Controlla se il prodotto è già presente nel carrello
+                this.cart.forEach((item) => {
+                    if (item.name === product.name) {
+                        item.quantity += parseInt(product.quantityToAdd); // Aggiunge la quantità selezionata
+                        found = true;
+                    }
+                });
+
+                // Se il prodotto non è già nel carrello, lo aggiunge con una quantità di 1
+                if (!found) {
+                    this.cart.push({ ...product, quantity: parseInt(product.quantityToAdd) });
+                }
+
+                this.saveCart(); // Salva il carrello dopo l'aggiunta del prodotto
+            } else {
+                alert('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello.');
+            }
+        },
+        // Funzione per rimuovere un elemento dal carrello
+        removeFromCart(index) {
+            this.cart.splice(index, 1); // Rimuove l'elemento dal carrello utilizzando l'indice
+            this.saveCart(); // Salva il carrello dopo la rimozione dell'elemento
+        },
+        // Funzione per salvare il carrello nel localStorage
+        saveCart() {
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+        },
+        // Funzione per caricare il carrello dal localStorage
+        loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            this.cart = cart;
+        },
     },
 
 }
@@ -45,10 +97,17 @@ export default {
     <div class="container-lg mb-2">
         <div class="row">
             <div class="col-12">
-                <h2>Carrello</h2>
-                
+                <h2 class="super-ocean">Carrello</h2>
+                <div id="cart">
+                    <ul id="cart-items">
+                      <li v-for="(item, index) in cart" :key="index">
+                        {{ item.name }} - Quantità: {{ item.quantity }} - Prezzo totale: {{ (item.price * item.quantity).toFixed(2).replace('.', ',') }} €
+                        <button @click="removeFromCart(index)">Rimuovi</button>
+                      </li>
+                    </ul>
+                  </div>
             </div>
-            
+
             <div class="col-12">
                 <h2 class="super-ocean">Menù</h2>
             </div>
@@ -68,11 +127,12 @@ export default {
                         <div class="card__price text-center">{{dish.price}}€</div>
                         <div class="d-flex justify-content-between align-items-center mt-3">
                             <div class="card__counter">
-                                <button class="card__btn">-</button>
+                                <!-- <button class="card__btn">-</button>
                                 <div class="card__counter-score">0</div>
-                                <button class="card__btn card__btn-plus">+</button>
+                                <button class="card__btn card__btn-plus">+</button> -->
+                                <input type="number" v-model="dish.quantityToAdd" min="1">
                             </div>
-                            <button class="add_btn btn" @click="addToCart(product)">Aggiungi</button>
+                            <button class="add_btn btn" @click="addToCart(dish)">Aggiungi</button>
                         </div>
                     </div>
                 </div>
