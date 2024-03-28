@@ -66,7 +66,7 @@ export default {
                   </li>
                 </ul>
                 <div class="text-white">Totale: {{this.store.totalPrice}}€</div>
-                <button>Check out</button>
+                <button class="check-out">Check out</button>
             </div>
         </div>
     </div>
@@ -100,5 +100,22 @@ export default {
     transform: translate(-140px, 33px) !important;
     background-color: #212121;
     width: 200px;
+
+    .check-out {
+        background-color: #DA643F;
+        color: #fff;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 20px;
+        padding: 5px 0;
+        margin-top: 10px;
+
+        &:hover {
+            background-color: #fff;
+            color: #DA643F;
+            cursor: pointer;
+        }
+    }
 }
 </style>

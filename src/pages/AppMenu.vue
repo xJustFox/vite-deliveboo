@@ -123,9 +123,18 @@ export default {
                     <div class="card__wrapper">
                         <div class="card__price text-center">{{dish.price}}€</div>
                         <div class="d-flex justify-content-between flex-column align-items-center mt-3">
-                            <div>
+                            <div class="input-number">
                                 <input type="number" v-model="dish.quantityToAdd" min="1">
                             </div>
+
+                            <!-- INPUT NUMBER SPAN -->
+                            <div class="wrapper">
+                                <span class="minus">-</span>
+                                <span class="num">1</span>
+                                <span class="plus">+</span>
+                            </div>
+
+                            
                             <button class="add_btn btn" @click="addToCart(dish)">Aggiungi</button>
                         </div>
                     </div>
@@ -192,6 +201,32 @@ export default {
         border-radius: 50px;
     }
 }
+
+    .wrapper {
+        margin: 15px 0;
+        height: 50px;
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        background-color: #434343;
+        color: white;
+    }
+
+    .wrapper span {
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .wrapper span.num {
+        border-right: 2px solid rgba(0,0,0,0.2);
+        border-left: 2px solid rgba(0,0,0,0.2);
+        pointer-events: none;
+    }
 
 #errorModal {
     .modal-content {
