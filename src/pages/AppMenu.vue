@@ -79,6 +79,14 @@ export default {
             this.cart.splice(index, 1); // Rimuove l'elemento dal carrello utilizzando l'indice
             this.saveCart(); // Salva il carrello dopo la rimozione dell'elemento
         },
+        // Funzione per aggiornare la quantità dell'elemento direttamente nel carrello
+        updateCart(index) {
+            // Assicura che la quantità non sia inferiore a 1
+            if (this.cart[index].quantity < 1) {
+                this.cart[index].quantity = 1;
+            }
+            this.saveCart();
+        },
         // Funzione per salvare il carrello nel localStorage
         saveCart() {
             localStorage.setItem('cart', JSON.stringify(this.cart));
@@ -102,6 +110,8 @@ export default {
                     <ul id="cart-items">
                       <li v-for="(item, index) in cart" :key="index">
                         {{ item.name }} - Quantità: {{ item.quantity }} - Prezzo totale: {{ (item.price * item.quantity).toFixed(2).replace('.', ',') }} €
+                        <!-- Input numerico per modificare la quantità -->
+                        <input type="number" v-model="item.quantity" @change="updateCart(index)" min="1">
                         <button @click="removeFromCart(index)">Rimuovi</button>
                       </li>
                     </ul>
