@@ -13,6 +13,22 @@ export default {
         this.loadCart();
     },
     methods: {
+        // Incrementa la quantità del piatto
+        incrementQuantity(dish) {
+            dish.quantity++;
+
+            this.saveCart();
+            this.store.getTotalPrice();
+        },
+        // Decrementa la quantità del piatto
+        decrementQuantity(dish) {
+            if (dish.quantity > 1) {
+                dish.quantity--;
+
+                this.saveCart();
+                this.store.getTotalPrice();
+            }
+        },
         // Funzione per rimuovere un elemento dal carrello
         removeFromCart(index) {
             this.store.cart.splice(index, 1); // Rimuove l'elemento dal carrello utilizzando l'indice
@@ -41,6 +57,21 @@ export default {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             this.store.cart = cart;
         },
+        getImage(img) {
+            let image;
+
+            if (img != null && img.includes('https') == false) {
+                image = `${this.store.baseUrl}/storage/${img}`;
+            }
+            else if (img.includes('https')){
+                image = img;
+            } 
+            else {
+                image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
+            }
+
+            return image;
+        }
     }
 }
 </script>
@@ -52,20 +83,30 @@ export default {
             <i v-show="this.store.cart.length > 0" class="fa-solid fa-circle"></i>
         </div>
         <div class="dropdown-menu">
-            <div class="d-flex flex-column justify-content-center p-2" id="cart">
+            <div class="d-flex flex-column justify-content-center p-2  w-100" id="cart">
                 <ul class=" list-unstyled" id="cart-items">
                   <li class="text-white d-flex flex-column" v-for="(item, index) in this.store.cart" :key="index">
-                    <div>{{ item.name }}</div>
-                    <div>Prezzo: {{ getPriceProduct(item.price, item.quantity)}} €</div>
-                    <!-- Input numerico per modificare la quantità -->
-                    <div>
-                        <input class="w-25" type="number" v-model="item.quantity" @change="updateCart(index), getTotalPrice()" min="1">
-                        <button @click="removeFromCart(index)">Rimuovi</button>
+                    <div class="row w-100">
+                        <div class="col-4 p-0">
+                            <img class="w-100" :src="getImage(item.image)" alt="">
+                        </div>
+                        <div class="col-8 p-0 position-relative">
+                            <div>{{ item.name }}</div>
+                            <div>Prezzo: {{ getPriceProduct(item.price, item.quantity)}} €</div>
+                            <!-- INPUT NUMBER SPAN -->
+                            <div class="counter">
+                                <span class="min" @click="decrementQuantity(item)">-</span>
+                                <span class="num">{{ item.quantity }}</span>
+                                <span class="plus" @click="incrementQuantity(item)">+</span>
+                            </div>
+
+                            <div class="trash" @click="removeFromCart(index)"><i class="fa-solid fa-trash"></i></div>
+                        </div>
                     </div>
                     <hr>
                   </li>
                 </ul>
-                <div class="text-white">Totale: {{this.store.totalPrice}}€</div>
+                <div class="text-white text-end px-3">Totale: {{this.store.totalPrice}}€</div>
                 <button class="check-out">Check out</button>
             </div>
         </div>
@@ -79,6 +120,7 @@ export default {
     color: white;
     padding: 5px;
 
+    
     .fa-circle{
         &::before{
             position: absolute;
@@ -90,16 +132,59 @@ export default {
             border-radius: 100%;
         }
     }
-
+    
     .fa-cart-shopping {
         font-size: 25px
     }
 }
 
 .dropdown-menu {
-    transform: translate(-140px, 33px) !important;
+    transform: translate(-255px, 40px) !important;
     background-color: #212121;
-    width: 200px;
+    width: 350px;
+
+    @media screen and (min-width: 768px) {
+        transform: translate(-350px, 40px) !important;
+        width: 390px;
+      }
+
+    .trash{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        i{
+            font-size: larger;
+            &:hover{
+                color: rgb(169, 2, 2);
+                cursor: pointer;
+            }
+        }
+
+    }
+    
+    .counter{
+        max-width: 100px;
+        margin-top: 10px;
+        display: flex;
+        background-color: #DA643F;
+    
+        .min,
+        .num,
+        .plus{
+            width: calc(100% / 3);
+            padding: 5px;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .min:hover,
+        .plus:hover{
+            cursor: pointer;
+            color: rgb(150, 107, 0);
+        }
+    }
+
 
     .check-out {
         background-color: #DA643F;

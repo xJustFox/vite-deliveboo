@@ -32,8 +32,18 @@ export default {
             else {
                 image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
             }
-
+            
             return image;
+        },
+        // Incrementa la quantità del piatto
+        incrementQuantity(dish) {
+            dish.quantityToAdd++;
+        },
+        // Decrementa la quantità del piatto
+        decrementQuantity(dish) {
+            if (dish.quantityToAdd > 1) {
+                dish.quantityToAdd--;
+            }
         },
         // Funzionamento Cart
         addToCart(product) {
@@ -80,7 +90,7 @@ export default {
             if (errorMessageElement) {
                 errorMessageElement.textContent = message;
             }
-            
+
             const errorModalElement = document.getElementById('errorModal');
             // Seleziona l'elemento con l'id errorModal e mostra il modale di errore
             if (errorModalElement) {
@@ -88,7 +98,7 @@ export default {
             }
         },
 
-        closeErrorModal(){
+        closeErrorModal() {
             const errorModalElement = document.getElementById('errorModal')
             errorModalElement.style.display = 'none';
         },
@@ -122,16 +132,13 @@ export default {
                     </div>
                     <div class="card__wrapper">
                         <div class="card__price text-center">{{dish.price}}€</div>
-                        <div class="d-flex justify-content-between flex-column align-items-center mt-3">
-                            <div class="input-number">
-                                <input type="number" v-model="dish.quantityToAdd" min="1">
-                            </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
 
                             <!-- INPUT NUMBER SPAN -->
                             <div class="wrapper">
-                                <span class="minus">-</span>
-                                <span class="num">1</span>
-                                <span class="plus">+</span>
+                                <span class="minus" @click="decrementQuantity(dish)">-</span>
+                                <span class="num">{{ dish.quantityToAdd }}</span>
+                                <span class="plus" @click="incrementQuantity(dish)">+</span>
                             </div>
 
                             
@@ -202,50 +209,49 @@ export default {
     }
 }
 
-    .wrapper {
-        margin: 15px 0;
-        height: 50px;
-        min-width: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        background-color: #434343;
-        color: white;
-    }
+.wrapper {
+    height: 50px;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: #434343;
+    color: white;
+}
 
-    .wrapper span {
-        width: 100%;
-        text-align: center;
-        cursor: pointer;
-        user-select: none;
-    }
+.wrapper span {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
 
-    .wrapper span.num {
-        border-right: 2px solid rgba(0,0,0,0.2);
-        border-left: 2px solid rgba(0,0,0,0.2);
-        pointer-events: none;
-    }
+.wrapper span.num {
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
 
 #errorModal {
     .modal-content {
-      backdrop-filter: blur(25px);
-      background-color: rgba(255, 255, 255, 0.05);
-      color: white;
-  
-      .super-ocean {
-        font-size: 25px;
-        color: #DA643F;
-      }
-  
-      .modal-header {
-        border: 0;
-      }
-  
-      .modal-body {
-        padding: 5px 16px;
-      }
+        backdrop-filter: blur(25px);
+        background-color: rgba(255, 255, 255, 0.05);
+        color: white;
+
+        .super-ocean {
+            font-size: 25px;
+            color: #DA643F;
+        }
+
+        .modal-header {
+            border: 0;
+        }
+
+        .modal-body {
+            padding: 5px 16px;
+        }
     }
-  }
+}
 </style>
