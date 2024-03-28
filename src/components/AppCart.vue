@@ -66,7 +66,7 @@ export default {
                   </li>
                 </ul>
                 <div class="text-white">Totale: {{this.store.totalPrice}}€</div>
-                <button>Check out</button>
+                <router-link class="btn btn-secondary" :class="this.store.cart <= 0 ? 'disabled' : '' " :to="{ name: 'credentials' }">Check out</router-link>
             </div>
         </div>
     </div>

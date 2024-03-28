@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AppHome from './pages/AppHome.vue';
 import AppContacts from './pages/AppContacts.vue';
 import AppMenu from './pages/AppMenu.vue';
+import AppCredentials from './pages/AppCredentials.vue';
 import ErrorPage from './components/ErrorPage.vue';
 
 const router = createRouter({
@@ -22,6 +23,11 @@ const router = createRouter({
             path: '/contacts',
             name: 'contacts',
             component: AppContacts
+        },
+        {
+            path: '/credentials',
+            name: 'credentials',
+            component: AppCredentials
         },
         {
             path: '/:patchMatch(.*)*',
