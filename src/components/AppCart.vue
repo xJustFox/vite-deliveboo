@@ -49,6 +49,7 @@ export default {
     <div class="dropdown-center">
         <div class="shopping-cart" type="button" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-cart-shopping fs-xl"></i>
+            <i v-show="this.store.cart.length > 0" class="fa-solid fa-circle"></i>
         </div>
         <div class="dropdown-menu">
             <div class="d-flex flex-column justify-content-center p-2" id="cart">
@@ -76,8 +77,21 @@ export default {
 .shopping-cart {
     text-decoration: none;
     color: white;
+    padding: 5px;
 
-    i {
+    .fa-circle{
+        &::before{
+            position: absolute;
+            top: 0;
+            right: 0px;
+            color: #ff5907;
+            font-size: 8px;
+            border: 0.2px solid black;
+            border-radius: 100%;
+        }
+    }
+
+    .fa-cart-shopping {
         font-size: 25px
     }
 }
