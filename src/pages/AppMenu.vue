@@ -210,6 +210,12 @@ export default {
         background-color: $my_orange;
         color: #fff;
         border-radius: 50px;
+        cursor: pointer;
+
+        &:hover {
+            color: #DA643F;
+            background-color: #fff;
+        }
     }
 }
 
