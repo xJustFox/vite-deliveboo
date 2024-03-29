@@ -210,9 +210,10 @@ export default {
             cursor: pointer;
         }
 
-        a.check-out {
-            text-decoration: none;
-        }
+    }
+    
+    a.check-out {
+        text-decoration: none;
     }
 }
 </style>
