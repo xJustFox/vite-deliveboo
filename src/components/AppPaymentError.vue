@@ -19,7 +19,8 @@ export default {
 
           <!-- reindirizzare alla pagina di pagamento -->
           <div class="col-12 text-center pb-4">
-               <button  class="btn btn-outline-light">Torna indietro</button>
+               <a href="/credentials">
+               <button  class="btn btn-outline-light">Torna indietro</button></a>
           </div>
 
 
