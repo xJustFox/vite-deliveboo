@@ -31,7 +31,7 @@ const router = createRouter({
             component: AppCredentials
         },
         {
-            path: '/PaymentError',
+            path: '/payment-error',
             name: 'AppPaymentError',
             component: AppPaymentError
         },
