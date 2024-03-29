@@ -100,15 +100,15 @@ export default {
       // Address
       if (!this.formData.delivery_address) {
         this.errors.delivery_address = 'Il campo indirizzo di spedizione è obbligatorio.';
-      } else if (this.formData.delivery_address.length > 255) {
-        this.errors.delivery_address = 'Il campo indirizzo di spedizione non può superare i 150caratteri.';
+      } else if (this.formData.delivery_address.length > 150) {
+        this.errors.delivery_address = 'Il campo indirizzo di spedizione non può superare i 150 caratteri.';
       }
 
       // Phone Num
       if (!this.formData.phone_num) {
         this.errors.phone_num = 'Il campo numero di telefono è obbligatorio.';
-      } else if (this.formData.phone_num.length < 5 || this.formData.phone_num.length > 255) {
-        this.errors.phone_num = 'Il numero di telefono deve essere lungo tra 5 e 100 caratteri.';
+      } else if (this.formData.phone_num.length < 5 || this.formData.phone_num.length > 30) {
+        this.errors.phone_num = 'Il numero di telefono deve essere lungo tra 8 e 30 caratteri.';
       }
 
       if (Object.keys(this.errors).length === 0) {
