@@ -1,7 +1,7 @@
 <script>
 export default {
-    name: 'AppCredentials',
-    data() {
+  name: 'AppCredentials',
+  data() {
     return {
       currentImageIndex: 0,
       images: [
@@ -21,16 +21,16 @@ export default {
   },
   methods: {
     moveSlider(index) {
-        this.stopRotation();
-        this.currentImageIndex = index;
+      this.stopRotation();
+      this.currentImageIndex = index;
     },
-    startRotation(){
-        this.intervalId = setInterval(() => {
-            this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-        }, 4000);
+    startRotation() {
+      this.intervalId = setInterval(() => {
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+      }, 4000);
     },
-    stopRotation(){
-        clearInterval(this.intervalId);
+    stopRotation() {
+      clearInterval(this.intervalId);
     }
   }
 }
@@ -105,6 +105,8 @@ export default {
                 </div>
 
                 <input type="submit" value="Prosegui al pagamento" class="sign-btn" />
+                <!-- <router-link class="" :to="{ name: 'confirmed_payment'}">
+                  Prosegui al pagamento</router-link> -->
               </div>
             </form>
           </div>
@@ -132,26 +134,26 @@ export default {
     </div>
 </template>
 <style lang="scss" scoped>
-    .position {
-        width: 100%;
-        min-height: 100vh;
-        overflow: hidden;
-        padding: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.position {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .box {
-    position: relative;
-    width: 100%;
-    max-width: 1020px;
-    height: 640px;
-    backdrop-filter: blur(25px);
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 3.3rem;
-    box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
-    }
+.box {
+  position: relative;
+  width: 100%;
+  max-width: 1020px;
+  height: 640px;
+  backdrop-filter: blur(25px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 3.3rem;
+  box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
+}
 
 .inner-box {
   position: absolute;
@@ -257,7 +259,7 @@ label {
   border-bottom-color: #DA643F;
 }
 
-.input-field.active + label {
+.input-field.active+label {
   font-size: 0.75rem;
   top: -2px;
 }

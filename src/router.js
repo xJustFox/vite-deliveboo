@@ -6,6 +6,7 @@ import AppMenu from './pages/AppMenu.vue';
 import AppCredentials from './pages/AppCredentials.vue';
 import AppPaymentError from './components/AppPaymentError.vue';
 import ErrorPage from './components/ErrorPage.vue';
+import ConfirmedPayment from './components/ConfirmedPayment.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -34,6 +35,11 @@ const router = createRouter({
             path: '/payment-error',
             name: 'AppPaymentError',
             component: AppPaymentError
+        },
+        {
+            path: '/confirmed_payment',
+            name: 'confirmed_payment',
+            component: ConfirmedPayment,
         },
         {
             path: '/:patchMatch(.*)*',
