@@ -4,6 +4,7 @@ import AppHome from './pages/AppHome.vue';
 import AppContacts from './pages/AppContacts.vue';
 import AppMenu from './pages/AppMenu.vue';
 import AppCredentials from './pages/AppCredentials.vue';
+import AppPayment from './pages/AppPayment.vue';
 import AppPaymentError from './components/AppPaymentError.vue';
 import ErrorPage from './components/ErrorPage.vue';
 import ConfirmedPayment from './components/ConfirmedPayment.vue';
@@ -30,6 +31,11 @@ const router = createRouter({
             path: '/credentials',
             name: 'credentials',
             component: AppCredentials
+        },
+        {
+            path: '/payment',
+            name: 'payment',
+            component: AppPayment
         },
         {
             path: '/payment-error',

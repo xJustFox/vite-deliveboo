@@ -104,7 +104,9 @@ export default {
                   <label for="phone"></label>
                 </div>
 
-                <input type="submit" value="Prosegui al pagamento" class="sign-btn" />
+                  <router-link class="sign-btn text-center" :to="{name: 'payment'}">
+                    <input type="submit" value="Prosegui al pagamento" class="sign-btn" />
+                  </router-link>
                 <!-- <router-link class="" :to="{ name: 'confirmed_payment'}">
                   Prosegui al pagamento</router-link> -->
               </div>
