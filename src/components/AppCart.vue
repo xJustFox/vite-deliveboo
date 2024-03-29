@@ -168,6 +168,7 @@ export default {
         margin-top: 10px;
         display: flex;
         background-color: #DA643F;
+        border-radius: 5px;
     
         .min,
         .num,
@@ -189,6 +190,9 @@ export default {
         }
     }
 
+    a.check-out.disabled {
+        text-decoration: none;
+    }
 
     .check-out {
         background-color: #DA643F;
@@ -205,6 +209,11 @@ export default {
             color: #DA643F;
             cursor: pointer;
         }
+
+    }
+    
+    a.check-out {
+        text-decoration: none;
     }
 }
 </style>
