@@ -4,6 +4,7 @@ import AppHome from './pages/AppHome.vue';
 import AppContacts from './pages/AppContacts.vue';
 import AppMenu from './pages/AppMenu.vue';
 import AppCredentials from './pages/AppCredentials.vue';
+import AppPaymentError from './components/AppPaymentError.vue';
 import ErrorPage from './components/ErrorPage.vue';
 
 const router = createRouter({
@@ -28,6 +29,11 @@ const router = createRouter({
             path: '/credentials',
             name: 'credentials',
             component: AppCredentials
+        },
+        {
+            path: '/PaymentError',
+            name: 'AppPaymentError',
+            component: AppPaymentError
         },
         {
             path: '/:patchMatch(.*)*',
