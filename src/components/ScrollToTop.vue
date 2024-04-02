@@ -31,11 +31,9 @@ a{
     padding: 13px 13px;
     border-radius: 100%;
     background-color: #DA643F;
-    margin-left: 10px;
-    margin-bottom: 10px;
     position: fixed;
     bottom: 20px;
-    right: 30px;
+    right: 15px;
     z-index: 99;
 
     
@@ -49,4 +47,17 @@ a{
         vertical-align: middle;
     }
 }
+
+@media (max-width: 768px) {
+    .btnUp{
+        padding: 10px 10px;
+    }
+}
+
+@media (max-width: 425px) {
+    .btnUp{
+        padding: 7px 7px;
+    }
+}
+
 </style>
