@@ -28,7 +28,7 @@ export default {
 }
 </script>
 <template>
-     <footer>
+     <footer v-if="$route.path  !== '/payment'">
           
 
                <div class="container-fluid px-4 py-2 d-flex flex-wrap">

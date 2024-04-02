@@ -4,6 +4,10 @@ export const store = reactive({
     baseUrl: 'http://127.0.0.1:8000',
     cart: [],
     totalPrice: 0,
+    clientToken: null,
+    braintreeError: null,
+
+
 
     getTotalPrice() {
         this.totalPrice = 0;
