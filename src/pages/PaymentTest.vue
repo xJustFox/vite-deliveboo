@@ -1,12 +1,24 @@
 <script>
+import { store } from '../store.js';
 import braintree from 'braintree-web';
 import axios from 'axios';
 
 export default {
+  name: 'PaymentTest',
+  data() {
+    return {
+      store
+    }
+  },
   mounted() {
     this.getClientToken();
   },
   methods: {
+    loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        this.store.cart = cart;
+        console.log(cart);
+    },
     getClientToken() {
       axios.get('http://127.0.0.1:8000/api/braintree/client-token')
         .then(response => {
@@ -67,6 +79,7 @@ export default {
                 console.error('Error tokenizing:', tokenizeErr);
                 return;
               }
+              this.loadCart();
               this.processPayment(payload.nonce);
             });
           });
@@ -76,6 +89,7 @@ export default {
     processPayment(nonce) {
     axios.post('http://127.0.0.1:8000/api/braintree/process-payment', {
       paymentMethodNonce: nonce,
+      cart: this.store.cart
     })
     .then(response => {
         // Gestisci la risposta dal server dopo il pagamento
