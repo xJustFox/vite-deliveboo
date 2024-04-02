@@ -1,13 +1,15 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+import ScrollToTop from './components/ScrollToTop.vue'
 
 import { store } from './store.js'
 
 export default {
   components: {
     AppHeader,
-    AppFooter
+    ScrollToTop,
+    AppFooter,
   },
   data() {
     return {
@@ -28,7 +30,8 @@ export default {
 
     <router-view></router-view>
   </div>
-  <AppFooter/>
+  <AppFooter />
+  <ScrollToTop />
 </template>
 <style lang="scss">
   @use './styles/generals.scss' as *;
