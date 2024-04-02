@@ -13,8 +13,25 @@ export default {
         "Consegna veloce, soddisfazione garantita",
       ],
       bullets: Array(2).fill(0),
-      intervalId: null
+      intervalId: null,
+
+      // dati della form
+      formData: {
+        name: '',
+        email: '',
+        delivery_address: '',
+        phone_num: ''
+      },
+      errors: {}
     };
+  },
+  watch: {
+    formData: {
+      deep: true,
+      handler() {
+        this.validateForm();
+      }
+    }
   },
   mounted() {
     this.startRotation();
@@ -31,78 +48,122 @@ export default {
     },
     stopRotation() {
       clearInterval(this.intervalId);
+    },
+    // Invio dei dati al Back-End
+    submitForm() {
+      // Effettua la validazione dei campi del modulo
+      this.validateForm();
+
+      // Se non ci sono errori di validazione, invia i dati del modulo al backend
+      if (Object.keys(this.errors).length === 0) {
+        // Costruisci l'oggetto dei dati da inviare al backend
+        const formDataToSend = {
+          name: this.formData.name,
+          email: this.formData.email,
+          delivery_address: this.formData.delivery_address,
+          phone_num: this.formData.phone_num
+        };
+
+        // GESTIRE API PER INVIO DATI
+
+        // // Invia i dati al backend tramite una richiesta HTTP POST
+        // axios.post('/api/submit-order', formDataToSend)
+        //   .then(response => {
+        //     // Gestisci la risposta dal backend
+        //     console.log(response.data);
+        //     // Esegui altre azioni necessarie dopo aver inviato i dati
+        //   })
+        //   .catch(error => {
+        //     // Gestisci gli errori durante l'invio dei dati
+        //     console.error(error);
+        //   });
+      }
+    },
+    // Validazione del Form
+    validateForm() {
+      this.errors = {};
+
+      // Name
+      if (!this.formData.name) {
+        this.errors.name = 'Il campo nome è obbligatorio.';
+      } else if (this.formData.name.length > 100) {
+        this.errors.name = 'Il campo nome non può superare i 100 caratteri.';
+      }
+
+      // Email
+      if (!this.formData.email) {
+        this.errors.email = 'Il campo email è obbligatorio.';
+      } else if (!/\S+@\S+\.\S+/.test(this.formData.email)) {
+        this.errors.email = 'Inserisci un indirizzo email valido.';
+      }
+
+      // Address
+      if (!this.formData.delivery_address) {
+        this.errors.delivery_address = 'Il campo indirizzo di spedizione è obbligatorio.';
+      } else if (this.formData.delivery_address.length > 150) {
+        this.errors.delivery_address = 'Il campo indirizzo di spedizione non può superare i 150 caratteri.';
+      }
+
+      // Phone Num
+      if (!this.formData.phone_num) {
+        this.errors.phone_num = 'Il campo numero di telefono è obbligatorio.';
+      } else if (this.formData.phone_num.length < 5 || this.formData.phone_num.length > 30) {
+        this.errors.phone_num = 'Il numero di telefono deve essere lungo tra 8 e 30 caratteri.';
+      }
+
+      if (Object.keys(this.errors).length === 0) {
+        this.submitForm();
+      }
     }
   }
 }
 </script>
 <template lang="">
     <div class="position">
-    <div class="box">
-        <div class="inner-box">
-          <div class="forms-wrap">
+      <div class="box">
+          <div class="inner-box">
+            <div class="forms-wrap">
 
-            <!-- LOGIN -->
-            <form action="index.html" autocomplete="off" class="sign-in-form">
-              <div class="logo">
-                <img src="../../public/img/Logo.png" alt="DeliveBoo" />
-                <h4 class="super-ocean pt-3 ps-2"><span class="text-orange">Delive</span><span class="text-gold">Boo</span></h4>
-              </div>
+              <!-- INSERIMENTO CREDENZIALI -->
+              <form action="index.html" autocomplete="off" class="sign-in-form">
+
+                <div class="logo">
+                  <img src="../../public/img/Logo.png" alt="DeliveBoo" />
+                  <h4 class="super-ocean pt-3 ps-2"><span class="text-orange">Delive</span><span class="text-gold">Boo</span></h4>
+                </div>
 
                 <div class="text-white fs-5 fw-bold pt-3 pt-lg-0">
                     Inserisci le tue credenziali
                 </div>
 
-              <div class="actual-form">
-                <div class="input-wrap">
-                  <input
-                    type="text"
-                    minlength="4"
-                    class="input-field"
-                    name="name"
-                    placeholder="Nome"
-                    autocomplete="off"
-                    required
-                  />
-                  <label for="name"></label>
+                <div class="actual-form">
+                  <!-- Campo nome -->
+                  <div class="input-wrap">
+                    <input type="text" v-model="formData.name" class="input-field" name="name" placeholder="Nome" autocomplete="off" required/>
+                    <label for="name"></label>
+                  </div>
+                  <div v-if="errors.name" class="error">{{ errors.name }}</div>
 
-                </div>
+                  <!-- Campo email -->
+                  <div class="input-wrap">
+                    <input type="email" v-model="formData.email" class="input-field" name="email" placeholder="Email" autocomplete="off" required/>
+                    <label for="email"></label>
+                  </div>
+                  <div v-if="errors.email" class="error">{{ errors.email }}</div>
 
-                <div class="input-wrap">
-                  <input
-                    type="password"
-                    minlength="4"
-                    class="input-field"
-                    name="email"
-                    placeholder="Email"
-                    autocomplete="off"
-                    required
-                  />
-                  <label for="email"></label>
-                </div>
-                <div class="input-wrap">
-                  <input
-                    type="password"
-                    minlength="4"
-                    class="input-field"
-                    name="address"
-                    placeholder="Indirizzo di spedizione"
-                    autocomplete="off"
-                    required
-                  />
-                  <label for="address"></label>
-                </div>
-                <div class="input-wrap">
-                  <input
-                    type="password"
-                    minlength="4"
-                    class="input-field"
-                    name="phone"
-                    placeholder="Telefono"
-                    autocomplete="off"
-                    required
-                  />
-                  <label for="phone"></label>
-                </div>
+                  <!-- Campo indirizzo di spedizione -->
+                  <div class="input-wrap">
+                    <input type="text" v-model="formData.delivery_address" class="input-field" name="delivery_address" placeholder="Indirizzo di spedizione" autocomplete="off" required/>
+                    <label for="delivery_address"></label>
+                  </div>
+                  <div v-if="errors.delivery_address" class="error">{{ errors.delivery_address }}</div>
+
+                  <!-- Campo numero di telefono -->
+                  <div class="input-wrap">
+                    <input type="text" v-model="formData.phone_num" class="input-field" name="phone_num" placeholder="Telefono" autocomplete="off" required />
+                    <label for="phone_num"></label>
+                  </div>
+                  <div v-if="errors.phone_num" class="error">{{ errors.phone_num }}</div>
 
                   <router-link class="sign-btn text-center" :to="{name: 'payment'}">
                     <input type="submit" value="Prosegui al pagamento" class="sign-btn" />
@@ -115,27 +176,34 @@ export default {
 
           <!-- CAROSELLO -->
           <div class="carousel">
-        <div class="images-wrapper">
-          <img v-for="(image, index) in images" :src="image.src" :class="{ 'image': true, ['img-' + (index + 1)]: true, 'show': index === currentImageIndex }" :alt="image.alt" />
-        </div>
-
-        <div class="text-slider">
-          <div class="text-wrap">
-            <div class="text-group" :style="{ transform: 'translateY(' + (-currentImageIndex * 2.2) + 'rem)' }">
-              <h2 v-for="(text, index) in texts" :key="index">{{ text }}</h2>
+            <div class="images-wrapper">
+              <img v-for="(image, index) in images" :src="image.src" :class="{ 'image': true, ['img-' + (index + 1)]: true, 'show': index === currentImageIndex }" :alt="image.alt" />
             </div>
-          </div>
 
-          <div class="bullets">
-            <span v-for="(bullet, index) in bullets" :key="index" :class="{ 'active': index === currentImageIndex }" @click="moveSlider(index)" :data-value="index + 1"></span>
-          </div>
-            </div>
+            <div class="text-slider">
+              <div class="text-wrap">
+                <div class="text-group" :style="{ transform: 'translateY(' + (-currentImageIndex * 2.2) + 'rem)' }">
+                  <h2 v-for="(text, index) in texts" :key="index">{{ text }}</h2>
+                </div>
+              </div>
+
+              <div class="bullets">
+                <span v-for="(bullet, index) in bullets" :key="index" :class="{ 'active': index === currentImageIndex }" @click="moveSlider(index)" :data-value="index + 1"></span>
+              </div>
+              </div>
           </div>
         </div>
-    </div>
+      </div>
     </div>
 </template>
+
 <style lang="scss" scoped>
+.error {
+  color: red;
+  font-size: 0.8rem;
+  padding: 5px 0;
+}
+
 .position {
   width: 100%;
   min-height: 100vh;
@@ -229,7 +297,7 @@ form.sign-up-form {
 .input-wrap {
   position: relative;
   height: 37px;
-  margin-bottom: 2rem;
+  margin-bottom: 15px;
 }
 
 .input-field {
@@ -276,6 +344,7 @@ label {
   cursor: pointer;
   border-radius: 0.8rem;
   font-size: 0.8rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   transition: 0.3s;
 }
