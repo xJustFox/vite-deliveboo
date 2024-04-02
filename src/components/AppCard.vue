@@ -6,6 +6,7 @@ export default {
   name: 'AppCard',
   data() {
     return {
+      store,
       currentCardBackground: Math.floor(Math.random()* 25 + 1),
       cardName: "",
       cardNumber: "",
@@ -13,8 +14,8 @@ export default {
       cardYear: "",
       cardCvv: "",
       minCardYear: new Date().getFullYear(),
-      amexCardMask: "#### ###### #####",
-      otherCardMask: "#### #### #### ####",
+      // amexCardMask: "#### ###### #####",
+      // otherCardMask: "#### #### #### ####",
       cardNumberTemp: "",
       isCardFlipped: false,
       focusElementStyle: null,
@@ -23,7 +24,10 @@ export default {
   },
   mounted() {
     this.cardNumberTemp = this.otherCardMask;
+
     document.getElementById("cardNumber").focus();
+
+    this.getClientToken();
   },
   computed: {
     getCardType () {
@@ -82,7 +86,90 @@ export default {
         }
       }, 300);
       vm.isInputFocused = false;
-    }
+    },
+    loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        this.store.cart = cart;
+        console.log(cart);
+    },
+    getClientToken() {
+      axios.get('http://127.0.0.1:8000/api/braintree/client-token')
+        .then(response => {
+          const clientToken = response.data.clientToken;
+          this.initializeBraintree(clientToken);
+        })
+        .catch(error => {
+          console.error('Error fetching client token:', error);
+        });
+    },
+    initializeBraintree(clientToken) {
+      braintree.client.create({
+        authorization: clientToken
+      }, (err, clientInstance) => {
+        if (err) {
+          console.error('Error creating Braintree client:', err);
+          return;
+        }
+        braintree.hostedFields.create({
+          client: clientInstance,
+          styles: {
+            input: {
+              'font-size': '1rem',
+              color: '#495057'
+            }
+          },
+          fields: {
+            cardholderName: {
+              selector: '#cardName',
+            },
+            number: {
+              selector: '#cardNumber',
+            },
+            cvv: {
+              selector: '#cardCvv',
+            },
+            expirationDate: {
+              selector: '#cardMonth',
+            }
+          }
+        }, (hostedFieldsErr, hostedFieldsInstance) => {
+          if (hostedFieldsErr) {
+            console.error('Error creating hosted fields:', hostedFieldsErr);
+            return;
+          }
+
+          const form = document.querySelector('.wrapper');
+
+          form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            hostedFieldsInstance.tokenize((tokenizeErr, payload) => {
+              if (tokenizeErr) {
+                console.error('Error tokenizing:', tokenizeErr);
+                return;
+              }
+              this.loadCart();
+              this.processPayment(payload.nonce);
+            });
+          });
+        });
+      });
+    },
+    processPayment(nonce) {
+    axios.post('http://127.0.0.1:8000/api/braintree/process-payment', {
+      paymentMethodNonce: nonce,
+      cart: this.store.cart
+    })
+    .then(response => {
+        // Gestisci la risposta dal server dopo il pagamento
+        console.log('Risposta dal server:', response.data);
+        console.log(nonce);
+    })
+    .catch(error => {
+        // Gestisci gli errori durante la richiesta al server
+        console.error('Errore durante il pagamento:', error);
+    });
+  }
   }
 }
 </script>
@@ -153,29 +240,29 @@ export default {
               </label>
               <div class="card-item__content">
                 <label for="cardName" class="card-item__info" ref="cardName">
-                  <div class="card-item__holder">Card Holder</div>
+                  <div class="card-item__holder"></div>
                   <transition name="slide-fade-up">
                     <div class="card-item__name" v-if="cardName.length" key="1">
                       <transition-group name="slide-fade-right">
                         <span class="card-item__nameItem" v-for="(n, index) in cardName.replace(/\s\s+/g, ' ').split('')" :key="index">{{ n }}</span>
                       </transition-group>
                     </div>
-                    <div class="card-item__name" v-else key="2">Full Name</div>
+                    <div class="card-item__name" v-else key="2"></div>
                   </transition>
                 </label>
                 <div class="card-item__date" ref="cardDate">
-                  <label for="cardMonth" class="card-item__dateTitle">Expires</label>
+                  <label for="cardMonth" class="card-item__dateTitle"></label>
                   <label for="cardMonth" class="card-item__dateItem">
                     <transition name="slide-fade-up">
                       <span v-if="cardMonth" :key="cardMonth">{{cardMonth}}</span>
-                      <span v-else key="2">MM</span>
+                      <span v-else key="2"></span>
                     </transition>
                   </label>
-                  /
+                  
                   <label for="cardYear" class="card-item__dateItem">
                     <transition name="slide-fade-up">
                       <span v-if="cardYear" :key="cardYear">{{String(cardYear).slice(2,4)}}</span>
-                      <span v-else key="2">YY</span>
+                      <span v-else key="2"></span>
                     </transition>
                   </label>
                 </div>
@@ -201,21 +288,27 @@ export default {
           </div>
         </div>
       </div>
+
+
+      
       <form action="/" method="POST" id="cardForm">
         <div class="card-form__inner">
           <div class="card-input">
             <label for="cardNumber" class="card-input__label">Numero Carta</label>
-            <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" @focus="focusInput" @blur="blurInput" data-ref="cardNumber" autocomplete="off">
+            <div class="form-control" id="cardNumber"></div>
+            <!-- <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" @focus="focusInput" @blur="blurInput" data-ref="cardNumber" autocomplete="off"> -->
           </div>
           <div class="card-input">
             <label for="cardName" class="card-input__label">Nome e Cognome</label>
-            <input type="text" id="cardName" class="card-input__input" v-model="cardName" @focus="focusInput" @blur="blurInput" data-ref="cardName" autocomplete="off">
+            <div class="form-control" id="cardName"></div>
+            <!-- <input type="text" id="cardName" class="card-input__input" v-model="cardName" @focus="focusInput" @blur="blurInput" data-ref="cardName" autocomplete="off"> -->
           </div>
           <div class="card-form__row">
             <div class="card-form__col">
               <div class="card-form__group">
                 <label for="cardMonth" class="card-input__label">Data di scadenza</label>
-                <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" @focus="focusInput" @blur="blurInput" data-ref="cardDate">
+                <div class="form-control" id="cardMonth"></div>
+                <!-- <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" @focus="focusInput" @blur="blurInput" data-ref="cardDate">
                   <option value="" disabled selected>Mese</option>
                   <option :value="n < 10 ? '0' + n : n" v-for="n in 12" :disabled="n < minCardMonth" :key="n">
                       {{n < 10 ? '0' + n : n}}
@@ -226,18 +319,19 @@ export default {
                   <option :value="$index + minCardYear" v-for="(n, $index) in 12" :key="n">
                       {{$index + minCardYear}}
                   </option>
-                </select>
+                </select> -->
               </div>
             </div>
             <div class="card-form__col -cvv">
               <div class="card-input">
                 <label for="cardCvv" class="card-input__label">CVV</label>
-                <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="4" v-model="cardCvv" @focus="flipCard(true)" @blur="flipCard(false)" autocomplete="off">
+                <div class="form-control" id="cardCvv"></div>
+                <!-- <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="4" v-model="cardCvv" @focus="flipCard(true)" @blur="flipCard(false)" autocomplete="off"> -->
               </div>
             </div>
           </div>
   
-          <button class="card-form__button" @click="submitForm">
+          <button class="card-form__button" type="submit">
             Prosegui
           </button>
         </div>
@@ -272,7 +366,7 @@ export default {
 }
 .card-form__inner {
   background: #fff;
-  box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
+  box-shadow: 0 30px 60px 0 #da643f66;
   border-radius: 10px;
   padding: 35px;
   padding-top: 180px;
@@ -833,4 +927,10 @@ export default {
   transform: translateX(-10px) rotate(45deg);
   pointer-events: none;
 }
+
+div#cardNumber, div#cardName, div#cardMonth, div#cardCvv  {
+    height: 50px;
+}
+
+
 </style>

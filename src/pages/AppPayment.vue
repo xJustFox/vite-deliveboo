@@ -11,8 +11,8 @@ export default {
 </script>
 <template lang="">
     <div class="app-payment">
-        <!-- <AppCard/> -->
-        <PaymentTest/>
+        <AppCard/>
+        <!-- <PaymentTest/> -->
     </div>
 </template>
 <style lang="scss" scoped>
