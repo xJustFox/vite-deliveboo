@@ -8,10 +8,12 @@ export default {
         return {
             store,
             dishes: [],
+            restaurants: []
         }
     },
     created() {
         this.getMenu();
+        this.getRestaurants()
     },
     methods: {
         getMenu() {
@@ -22,6 +24,11 @@ export default {
                 this.dishes.forEach(element => {
                     element.quantityToAdd = 1
                 });
+            })
+        },
+        getRestaurants() {
+            axios.get(`${this.store.baseUrl}/api/restaurants/${this.$route.params.slug}`).then(response => {
+                this.restaurants = response.data.results;
             })
         },
         // Incrementa la quantità del piatto
@@ -114,6 +121,24 @@ export default {
 </script>
 
 <template lang="">
+    <div class="container-fluid">
+        <div class="row">
+            <div v-for="restaurant in restaurants" :key="restaurant.id" class="col-12">
+                <div class="d-flex justify-content-center" v-if="restaurant.main_image != null">
+                    <div class="jumbotron jumbotron-fluid" :style="{ backgroundImage:  `linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),url(${restaurant.main_image})`}">
+                        <div class="container">
+                            <div class="display-4 super-ocean">
+                                {{ restaurant.name }}
+                            </div>
+                            <p class="lead super-ocean">
+                                {{ restaurant.address }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-lg mb-2">
         <div class="row">
             <div class="col-12">
@@ -168,6 +193,21 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0.3rem;
+    background-size: cover;
+    color: white;
+    width: 100%;
+    height: 350px;
+    margin-top: 2.5rem;
+    background-position: center;
+    color: #DA643F;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+}
 
 .card {
     --main-color: #fff;

@@ -5,7 +5,6 @@ export default {
     data() {
         return {
             store,
-            
         }
     },
     mounted() {
@@ -177,6 +176,7 @@ export default {
             padding: 5px 0px;
             font-size: 15px;
             text-align: center;
+            border-radius: 5px;
 
             i{
                 vertical-align: middle;

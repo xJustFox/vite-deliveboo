@@ -1,4 +1,7 @@
 <script>
+import braintree from 'braintree-web';
+import { store } from '../store.js';
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -14,7 +17,7 @@ export default {
       cardNumberTemp: "",
       isCardFlipped: false,
       focusElementStyle: null,
-      isInputFocused: false
+      isInputFocused: false,
     };
   },
   mounted() {
