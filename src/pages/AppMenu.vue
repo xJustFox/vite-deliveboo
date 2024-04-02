@@ -8,7 +8,9 @@ export default {
         return {
             store,
             dishes: [],
-            restaurants: []
+            restaurants: [],
+            showPopup: false,
+            popupText: '',
         }
     },
     created() {
@@ -106,15 +108,24 @@ export default {
             if (img != null && img.includes('https') == false || img.includes('http') == false) {
                 image = `${this.store.baseUrl}/storage/${img}`;
             }
-            else if (img.includes('https')){
+            else if (img.includes('https')) {
                 image = img;
-            } 
+            }
             else {
                 image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
             }
 
             return image;
-        }
+        },
+        openPopup(dish) {
+            this.popupText = '';
+            this.popupText += `Hai aggiunto ${dish.quantityToAdd}x ${dish.name}`;
+            this.showPopup = true;
+
+            setTimeout(() => {
+                this.showPopup = false; // Imposta lo stato del popup su false per farlo scomparire
+            }, 1300); // Chiudi il popup dopo 800 millisecondi
+        },
     },
 
 }
@@ -168,12 +179,18 @@ export default {
                             </div>
 
                             
-                            <button class="add_btn btn" @click="addToCart(dish)">Aggiungi</button>
+                            <button class="add_btn btn" @click="addToCart(dish), openPopup(dish)">Aggiungi</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- POP-UP -->
+    <!-- v-show="showPopup" -->
+    <div class="popup" :class="{ 'show': showPopup }" id="popup">
+        <i class="fa-solid fa-cart-plus pe-2"></i>
+        <span id="popupText">{{ popupText }}</span>
     </div>
     <!-- ERROR MODAL -->
     <div class="modal" id="errorModal" style="display: none;" tabindex="-1">
@@ -193,6 +210,29 @@ export default {
 
 <style lang="scss" scoped>
 @use '../styles/partials/variables' as *;
+
+.popup {
+    display: block;
+    position: fixed;
+    bottom: 30px;
+    right: 0;
+    transform: translateX(100%);
+    background-color: #212121;
+    padding: 20px;
+    border: 2px solid #DA643F;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    transition: transform 0.3s ease-in-out;
+    i{
+        color: #DA643F;
+    }
+}
+
+.popup.show{
+    transform: translateX(0%);
+}
+
+
 
 .jumbotron {
     padding: 2rem 1rem;
