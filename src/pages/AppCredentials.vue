@@ -25,14 +25,6 @@ export default {
       errors: {}
     };
   },
-  watch: {
-    formData: {
-      deep: true,
-      handler() {
-        this.validateForm();
-      }
-    }
-  },
   mounted() {
     this.startRotation();
   },
@@ -49,11 +41,9 @@ export default {
     stopRotation() {
       clearInterval(this.intervalId);
     },
+
     // Invio dei dati al Back-End
     submitForm() {
-      // Effettua la validazione dei campi del modulo
-      this.validateForm();
-
       // Se non ci sono errori di validazione, invia i dati del modulo al backend
       if (Object.keys(this.errors).length === 0) {
         // Costruisci l'oggetto dei dati da inviare al backend
@@ -79,6 +69,7 @@ export default {
         //   });
       }
     },
+    
     // Validazione del Form
     validateForm() {
       this.errors = {};
@@ -165,9 +156,8 @@ export default {
                   </div>
                   <div v-if="errors.phone_num" class="error">{{ errors.phone_num }}</div>
 
-                  <router-link class="sign-btn text-center" :to="{name: 'payment'}">
-                    <input type="submit" value="Prosegui al pagamento" class="sign-btn" />
-                  </router-link>
+                  <!-- Utilizziare @click="validateForm()" per richiamare la funzione di validazione prima dell'invio dei dati -->
+                  <router-link class="sign-btn text-center text-decoration-none" :to="{name: 'payment'}">Prosegui al pagamento</router-link>
                 <!-- <router-link class="" :to="{ name: 'confirmed_payment'}">
                   Prosegui al pagamento</router-link> -->
               </div>
@@ -337,13 +327,13 @@ label {
 .sign-btn {
   display: inline-block;
   width: 100%;
-  height: 43px;
+  padding: 10px;
   background-color: #DA643F;
   color: #fff;
   border: none;
   cursor: pointer;
   border-radius: 0.8rem;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
   transition: 0.3s;
