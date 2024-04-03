@@ -33,15 +33,15 @@ export default {
             <div class="row">
 
                 <!-- Logo -->
-                <div class="col-3 py-5 d-lg-block d-md-block d-sm-block d-none">
+                <div class="col-3 py-5 d-lg-block d-md-none d-sm-none d-none">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <img class="img-fluid" src="../../public/img/Logo.png" alt="">
                     </div>
                 </div>
 
                 <!-- Links section -->
-                <div class="col-7 d-flex py-5">
-                    <div class="col text-white">
+                <div class="col-lg-7 col-md-12 col-sm-12 d-flex flex-wrap py-5">
+                    <div class="col-lg col-md-6 col-6 text-white">
                         <h5>Servizi</h5>
                         <hr class="hr_footer">
                         <ul class="list-unstyled">
@@ -51,7 +51,7 @@ export default {
                             <li><a class="text-decoration-none" href="#">Norme sui cookie</a></li>
                         </ul>
                     </div>
-                    <div class="col text-white">
+                    <div class="col-lg col-md-6 col-6 text-white">
                          <h5>Prodotti</h5>
                          <hr class="hr_footer">
                          <ul class="list-unstyled">
@@ -60,7 +60,7 @@ export default {
                              <li><a class="text-decoration-none" href="#">App Desktop</a></li>
                          </ul>
                     </div>
-                    <div class="col text-white">
+                    <div class="col-lg col-md-6 col-6 text-white">
                          <h5>Supporto</h5>
                          <hr class="hr_footer">
                          <ul class="list-unstyled">
@@ -71,7 +71,7 @@ export default {
                              <li><a class="text-decoration-none" href="#">Informazioni su DeliveBoo</a></li>
                          </ul>
                     </div>
-                    <div class="col text-white">
+                    <div class="col-lg col-md-6 col-6 text-white">
                         <h5>Sito</h5>
                         <hr class="hr_footer">
                         <ul class="list-unstyled text-white">
@@ -83,24 +83,24 @@ export default {
                 </div>
 
                 <!-- Subscribe section -->
-                <div class="col-2 d-flex py-5 text-white">
+                <div class="col-lg-2 col-md-12 col-sm-12 d-flex py-5 text-white">
                     <div>
                         <h5>Socials</h5>
                         <div class="my-2">
                             <a class="text-white" href="">
-                                <i class="fab fa-facebook p-2 me-1"></i>
+                                <i class="fab fa-facebook p-2 me-1 my-1 "></i>
                             </a>
                             <a class="text-white" href="">
-                                <i class="fab fa-twitter p-2 me-1"></i>
+                                <i class="fab fa-twitter p-2 me-1 my-1 "></i>
                             </a>
                             <a class="text-white" href="">
-                                <i class="fab fa-linkedin-in p-2 me-1"></i>
+                                <i class="fab fa-linkedin-in p-2 me-1 my-1 "></i>
                             </a>
                             <a class="text-white" href="">
-                                <i class="fab fa-twitter p-2 me-1"></i>
+                                <i class="fab fa-twitter p-2 me-1 my-1 "></i>
                             </a>
                             <a class="text-white" href="">
-                                <i class="fab fa-instagram p-2 me-1"></i>
+                                <i class="fab fa-instagram p-2 me-1 my-1 "></i>
                             </a>
                         </div>
                         <!-- <div class="mt-5">
@@ -152,6 +152,10 @@ footer{
         &:hover{
             color: $my_gold;
         }
+    }
+
+    li{
+     margin-right: 5px;
     }
 
     .hr_footer{
