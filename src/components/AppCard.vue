@@ -23,7 +23,6 @@ export default {
     };
   },
   mounted() {
-    this.cardNumberTemp = this.otherCardMask;
 
     document.getElementById("cardNumber").focus();
 
@@ -48,9 +47,6 @@ export default {
       if (number.match(re) != null) return 'troy'
 
       return "visa"; // default type
-    },
-		generateCardNumberMask () {
-			return this.getCardType === "amex" ? this.amexCardMask : this.otherCardMask;
     },
     minCardMonth () {
       if (this.cardYear === this.minCardYear) return new Date().getMonth() + 1;
@@ -150,6 +146,7 @@ export default {
               }
               this.loadCart();
               this.processPayment(payload.nonce);
+              console.log(payload);
             });
           });
         });
@@ -217,7 +214,7 @@ export default {
                 </template>
 
                 <template v-else>
-                  <span v-for="(n, $index) in otherCardMask" :key="$index">
+                  <!-- <span v-for="(n, $index) in otherCardMask" :key="$index">
                     <transition name="slide-fade-up">
                       <div
                         class="card-item__numberItem"
@@ -235,7 +232,7 @@ export default {
                         :key="$index + 1"
                       >{{n}}</div>
                     </transition>
-                  </span>
+                  </span> -->
                 </template>
               </label>
               <div class="card-item__content">
@@ -346,6 +343,7 @@ export default {
   min-height: 100vh;
   display: flex;
   padding: 50px 15px;
+  width: 100%;
 }
 @media screen and (max-width: 700px), (max-height: 500px) {
   .wrapper {
