@@ -15,8 +15,8 @@ export default {
         <div class="box">
             <div class="green-circle"></div>
             <div class="inner-box text-center">
-                <div class="card_title">Pagamento riuscito</div>
-                <div class="card_subtitle">Grazie per aver effettuato l'ordine!</div>
+                <div class="card_title">Transazione Riuscita</div>
+                <div class="card_subtitle">Grazie per aver effettuato l'ordine e per aver usato DeliveBoo!</div>
                 <div class="my-5">
                     <div class="name">Nome...</div>
                     <div class="email mt-2">Email...</div>
