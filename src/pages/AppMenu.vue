@@ -73,14 +73,7 @@ export default {
 
                 this.saveCart(); // Salva il carrello dopo l'aggiunta del prodotto
             } else {
-                const orderRestaurant = ;
                 this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello. Clicca il pulsante per tornare al ristorante precedente e proseguire con l\'ordine.');
-
-                const btn = document.getElementById('buttonModal');
-                btn.addEventListener('click', function () {
-                    // Reindirizza alla pagina del ristorante
-                    window.location.href = orderRestaurant;
-                })
             }
 
             this.store.getTotalPrice();
@@ -104,6 +97,11 @@ export default {
         closeErrorModal() {
             const errorModalElement = document.getElementById('errorModal')
             errorModalElement.style.display = 'none';
+        },
+        clearCart() {
+            this.store.cart = []; // Svuota il carrello
+            this.saveCart(); // Salva il carrello dopo la rimozione dell'elemento
+            this.store.getTotalPrice();
         },
         // Funzione per salvare il carrello nel localStorage
         saveCart() {
@@ -194,7 +192,7 @@ export default {
             </div>
             <div class="modal-body">
                 <p id="errorMessage"></p>
-                <button id="buttonModal" class="btn btn-modal mb-2">Torna al ristorante</button>
+                <button id="buttonModal" class="btn btn-modal mb-2" @click="clearCart(), closeErrorModal()">Svuota il carrello</button>
             </div>
           </div>
         </div>
