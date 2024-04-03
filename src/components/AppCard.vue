@@ -89,7 +89,7 @@ export default {
         console.log(cart);
     },
     getClientToken() {
-      axios.get('http://127.0.0.1:8000/api/braintree/client-token')
+      axios.get(`${this.store.baseUrl}/api/braintree/client-token`)
         .then(response => {
           const clientToken = response.data.clientToken;
           this.initializeBraintree(clientToken);
@@ -153,7 +153,7 @@ export default {
       });
     },
     processPayment(nonce) {
-    axios.post('http://127.0.0.1:8000/api/braintree/process-payment', {
+    axios.post(`${this.store.baseUrl}/api/braintree/process-payment`, {
       paymentMethodNonce: nonce,
       cart: this.store.cart
     })
