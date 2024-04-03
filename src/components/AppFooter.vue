@@ -8,7 +8,7 @@ export default {
           return {
                store,
                flagActive: 0,
-               navLinks: [
+               footerLinks: [
                     {
                          name: 'home',
                          label: 'Home'
@@ -28,110 +28,135 @@ export default {
 }
 </script>
 <template>
-     <footer v-if="$route.path  !== '/payment'">
-          
+     <footer>
+        <div class="container">
+            <div class="row">
 
-               <div class="container-fluid px-4 py-2 d-flex flex-wrap">
-
-                    <!-- Logo -->
-                    <div class="d-flex col-12 col-lg-4 align-items-center p-3 flex-wrap">
-                         <div class="col-12 d-flex justify-content-center align-items-center">
-
-                              <a href="/">
-                                   <img class="logo_deliveboo me-2" src="../../public/img/Logo.png" alt="">
-                              </a>
-                              <a class="text-decoration-none text-white super-ocean" href="/">{{ 'DeliveBoo' }}</a>
-                         </div>
-                         <div class="col-12 py-3 py-md-1 fw-bolder d-flex justify-content-center align-items-center">
-                              <p>Cibo sano per una Vita sana</p>
-                         </div>
-                         
+                <!-- Logo -->
+                <div class="col-3 py-5 d-lg-block d-md-block d-sm-block d-none">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <img class="img-fluid" src="../../public/img/Logo.png" alt="">
                     </div>
-                    
+                </div>
 
-                    <!-- Center Links -->
-                    <div class="col p-5">
-                         <ul class="d-flex align-items-center list-unstyled  justify-content-evenly">
-                              <!-- Home Link -->
-                              <li class="px-2">
-                                   <router-link class="my-nav-link super-ocean abs" :to="{ name: navLinks[0].name }" @click="getActiveLink(index)">
-                                        {{ navLinks[0].label }}
-                                   </router-link>    
-                                   <ul class="list-unstyled">
-                                        <li>menu</li>
-                                        <li>carrello</li>
-                                        <li>Terms&Conditions</li>
-                                        <li>Privacy Policy</li>
-                                        <li>Development</li>
-                                   </ul>
-                              </li>
-                              <li class="px-2">
-                                   <router-link class="my-nav-link super-ocean abs" :to="{ name: navLinks[1].name }" @click="getActiveLink(index)">
-                                        {{ navLinks[1].label }}
-                                   </router-link>    
-                                   <ul class="list-unstyled">
-                                        <li>email</li>
-                                        <li>cellulare</li>
-                                        <li>fax</li>
-                                        <li>Location</li>
-                                        <li>About Us</li>
-                                   </ul>
-                              </li>
-                              
+                <!-- Links section -->
+                <div class="col-7 d-flex py-5">
+                    <div class="col text-white">
+                        <h5>Servizi</h5>
+                        <hr class="hr_footer">
+                        <ul class="list-unstyled">
+                            <li><a class="text-decoration-none" href="#">Terms & Conditions</a></li>
+                            <li><a class="text-decoration-none" href="#">Privacy Policy</a></li>
+                            <li><a class="text-decoration-none" href="#">Mappa del sito</a></li>
+                            <li><a class="text-decoration-none" href="#">Norme sui cookie</a></li>
+                        </ul>
+                    </div>
+                    <div class="col text-white">
+                         <h5>Prodotti</h5>
+                         <hr class="hr_footer">
+                         <ul class="list-unstyled">
+                              <li><a class="text-decoration-none" href="#">App Mobile</a></li>
+                             <li><a class="text-decoration-none" href="#">Abbonamenti</a></li>
+                             <li><a class="text-decoration-none" href="#">App Desktop</a></li>
                          </ul>
                     </div>
+                    <div class="col text-white">
+                         <h5>Supporto</h5>
+                         <hr class="hr_footer">
+                         <ul class="list-unstyled">
+                             <li><a class="text-decoration-none" href="#">Email</a></li>
+                             <li><a class="text-decoration-none" href="#">Location</a></li>
+                             <li><a class="text-decoration-none" href="#">Centro assistenza</a></li>
+                             <li><a class="text-decoration-none" href="#">Lavora con noi</a></li>
+                             <li><a class="text-decoration-none" href="#">Informazioni su DeliveBoo</a></li>
+                         </ul>
+                    </div>
+                    <div class="col text-white">
+                        <h5>Sito</h5>
+                        <hr class="hr_footer">
+                        <ul class="list-unstyled text-white">
+                            <li v-for="link, index in footerLinks">
+                                <router-link class="text-decoration-none" :to="{ name: link.name }">{{ link.label }}</router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-                    
-               </div>
-     </footer>
+                <!-- Subscribe section -->
+                <div class="col-2 d-flex py-5 text-white">
+                    <div>
+                        <h5>Socials</h5>
+                        <div class="my-2">
+                            <a class="text-white" href="">
+                                <i class="fab fa-facebook p-2 me-1"></i>
+                            </a>
+                            <a class="text-white" href="">
+                                <i class="fab fa-twitter p-2 me-1"></i>
+                            </a>
+                            <a class="text-white" href="">
+                                <i class="fab fa-linkedin-in p-2 me-1"></i>
+                            </a>
+                            <a class="text-white" href="">
+                                <i class="fab fa-twitter p-2 me-1"></i>
+                            </a>
+                            <a class="text-white" href="">
+                                <i class="fab fa-instagram p-2 me-1"></i>
+                            </a>
+                        </div>
+                        <!-- <div class="mt-5">
+                            <h5 class="pb-3">Iscriviti</h5>
+                            <div class="d-flex">
+                                <input type="email" class="form-control rounded me-3 pe-5 " id="newsletter" placeholder="Inserisci la tua email">
+                                <button class="rounded sub_btn text-white px-4" type="button">Subscribe</button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+                <hr class="text-white bottom_hr">
+
+                <!-- Copyright -->
+                <div class="col-12 d-flex justify-content-center my-3 text-white">
+                    <span>&#169 Made with &#9829 by Team 4</span>
+                </div>
+
+            </div>
+        </div>
+    </footer>
 </template>
 
 <style lang="scss" scoped>
-footer {
-     background-color: #e45327;
-     
-     
+@use '../styles/partials/variables' as *;
+footer{
+    background-color: $my_orange;
 
-     .logo_deliveboo {
-          width: 100px;
-          height: 100px;
-          filter: brightness(0) invert(1);
-     }
+    img{
+        width: 60%;
+        filter: brightness(0) invert(1);
+    }
 
-    
-     .col-8{
-          position: relative;
+    .sub_btn{
+        background-color: $my_grey;
+        border-color: $my_gold;
+    }
 
-          .abs{
-               position: absolute;
-               top: 10px;
-          }
-     }
+    i{
+        border: 1px solid;
+        border-radius: 50%;
+    }
 
-     .text-white {
-          color: #ffffff;
-          font-size: 50px;
-     }
+    a, i{
+        color: white;
+        text-decoration: none;
 
+        &:hover{
+            color: $my_gold;
+        }
+    }
 
-     .my-nav-link {
-          font-size: 23px;
-          padding-right: 10px;
-          color: white;
-          text-decoration: none;
-
-          &:hover {
-               color: #000000;
-          }
-     }
-
-    
-
-     
-
-
-    
-
+    .hr_footer{
+        width: 50%;
+    }
 
 }
 </style>
