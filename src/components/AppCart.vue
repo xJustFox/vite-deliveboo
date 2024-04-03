@@ -106,7 +106,7 @@ export default {
                   </li>
                 </ul>
                 <div class="text-white text-end px-3">Totale: {{this.store.totalPrice}}€</div>
-                <router-link class="check-out" :class="this.store.cart <= 0 ? 'disabled' : '' " :to="{ name: 'credentials' }">Check out</router-link>
+                <router-link class="check-out"  :to="this.store.cart.length > 0 ? '/credentials' : '#' ">Check out</router-link>
             </div>
         </div>
     </div>
