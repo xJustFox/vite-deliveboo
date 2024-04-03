@@ -73,7 +73,14 @@ export default {
 
                 this.saveCart(); // Salva il carrello dopo l'aggiunta del prodotto
             } else {
-                this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello.');
+                const orderRestaurant = ;
+                this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello. Clicca il pulsante per tornare al ristorante precedente e proseguire con l\'ordine.');
+
+                const btn = document.getElementById('buttonModal');
+                btn.addEventListener('click', function () {
+                    // Reindirizza alla pagina del ristorante
+                    window.location.href = orderRestaurant;
+                })
             }
 
             this.store.getTotalPrice();
@@ -86,11 +93,13 @@ export default {
                 errorMessageElement.textContent = message;
             }
 
-            const errorModalElement = document.getElementById('errorModal');
             // Seleziona l'elemento con l'id errorModal e mostra il modale di errore
+            const errorModalElement = document.getElementById('errorModal');
+
             if (errorModalElement) {
                 errorModalElement.style.display = 'block';
             }
+
         },
         closeErrorModal() {
             const errorModalElement = document.getElementById('errorModal')
@@ -106,9 +115,9 @@ export default {
             if (img != null && img.includes('https') == false || img.includes('http') == false) {
                 image = `${this.store.baseUrl}/storage/${img}`;
             }
-            else if (img.includes('https')){
+            else if (img.includes('https')) {
                 image = img;
-            } 
+            }
             else {
                 image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
             }
@@ -180,11 +189,12 @@ export default {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title fs-3 super-ocean">Errore</h5>
+              <h5 class="modal-title fs-3 super-ocean">Attenzione</h5>
               <button type="button" class="btn-close" @click="closeErrorModal()"></button>
             </div>
             <div class="modal-body">
-                <p id="errorMessage">Messaggio di errore</p>
+                <p id="errorMessage"></p>
+                <button id="buttonModal" class="btn btn-modal mb-2">Torna al ristorante</button>
             </div>
           </div>
         </div>
@@ -301,6 +311,12 @@ export default {
 
         .modal-body {
             padding: 5px 16px;
+        }
+
+        .btn-modal {
+            background-color: #DA643F;
+            color: #fff;
+            float: right;
         }
     }
 }
