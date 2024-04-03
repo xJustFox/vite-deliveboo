@@ -75,7 +75,7 @@ export default {
 
                 this.saveCart(); // Salva il carrello dopo l'aggiunta del prodotto
             } else {
-                this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello.');
+                this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello. Clicca il pulsante per tornare al ristorante precedente e proseguire con l\'ordine.');
             }
 
             this.store.getTotalPrice();
@@ -88,15 +88,22 @@ export default {
                 errorMessageElement.textContent = message;
             }
 
-            const errorModalElement = document.getElementById('errorModal');
             // Seleziona l'elemento con l'id errorModal e mostra il modale di errore
+            const errorModalElement = document.getElementById('errorModal');
+
             if (errorModalElement) {
                 errorModalElement.style.display = 'block';
             }
+
         },
         closeErrorModal() {
             const errorModalElement = document.getElementById('errorModal')
             errorModalElement.style.display = 'none';
+        },
+        clearCart() {
+            this.store.cart = []; // Svuota il carrello
+            this.saveCart(); // Salva il carrello dopo la rimozione dell'elemento
+            this.store.getTotalPrice();
         },
         // Funzione per salvare il carrello nel localStorage
         saveCart() {
@@ -197,11 +204,12 @@ export default {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title fs-3 super-ocean">Errore</h5>
+              <h5 class="modal-title fs-3 super-ocean">Attenzione</h5>
               <button type="button" class="btn-close" @click="closeErrorModal()"></button>
             </div>
             <div class="modal-body">
-                <p id="errorMessage">Messaggio di errore</p>
+                <p id="errorMessage"></p>
+                <button id="buttonModal" class="btn btn-modal mb-2" @click="clearCart(), closeErrorModal()">Svuota il carrello</button>
             </div>
           </div>
         </div>
@@ -341,6 +349,12 @@ export default {
 
         .modal-body {
             padding: 5px 16px;
+        }
+
+        .btn-modal {
+            background-color: #DA643F;
+            color: #fff;
+            float: right;
         }
     }
 }
