@@ -103,13 +103,6 @@ export default {
                                 <i class="fab fa-instagram p-2 me-1 my-1 "></i>
                             </a>
                         </div>
-                        <!-- <div class="mt-5">
-                            <h5 class="pb-3">Iscriviti</h5>
-                            <div class="d-flex">
-                                <input type="email" class="form-control rounded me-3 pe-5 " id="newsletter" placeholder="Inserisci la tua email">
-                                <button class="rounded sub_btn text-white px-4" type="button">Subscribe</button>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
 
