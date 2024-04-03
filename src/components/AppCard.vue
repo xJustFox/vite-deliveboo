@@ -146,17 +146,10 @@ export default {
       cart: this.store.cart
     })
     .then(response => {
-        // Gestisci la risposta dal server dopo il pagamento
 
         const responseString = response.data;
-
-        // Trova l'indice di inizio della stringa JSON
         const startIndex = responseString.indexOf('{');
-
-        // Estrarre la parte della stringa JSON
         const jsonString = responseString.substring(startIndex);
-
-        // Converti la stringa JSON in un oggetto JavaScript
         const responseObject = JSON.parse(jsonString);
 
         if (responseObject.success == true) {
