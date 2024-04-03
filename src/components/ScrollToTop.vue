@@ -17,7 +17,9 @@ export default {
 </script>
 
 <template lang="">
-    <a href="#header"><i class="fa-solid fa-chevron-up btnUp" id="myBtn"></i></a>
+    <div v-if="$route.path  !== '/payment' && $route.path !== '/confirmed_payment' && $route.path !== '/payment-error'">
+        <a href="#header"><i class="fa-solid fa-chevron-up btnUp" id="myBtn"></i></a>
+    </div>
 </template>
 
 <style lang="scss" scoped>
