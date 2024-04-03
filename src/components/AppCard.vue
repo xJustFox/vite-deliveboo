@@ -47,23 +47,9 @@ export default {
       if (number.match(re) != null) return 'troy'
 
       return "visa"; // default type
-    },
-    minCardMonth () {
-      if (this.cardYear === this.minCardYear) return new Date().getMonth() + 1;
-      return 1;
-    }
-  },
-  watch: {
-    cardYear () {
-      if (this.cardMonth < this.minCardMonth) {
-        this.cardMonth = "";
-      }
     }
   },
   methods: {
-    flipCard (status) {
-      this.isCardFlipped = status;
-    },
     focusInput (e) {
       this.isInputFocused = true;
       let targetRef = e.target.dataset.ref;
@@ -142,6 +128,8 @@ export default {
             hostedFieldsInstance.tokenize((tokenizeErr, payload) => {
               if (tokenizeErr) {
                 console.error('Error tokenizing:', tokenizeErr);
+                localStorage.orderErrorMessage = tokenizeErr.message;
+                axios.post(`${this.store.baseUrl}/`)
                 return;
               }
               this.loadCart();
@@ -159,12 +147,28 @@ export default {
     })
     .then(response => {
         // Gestisci la risposta dal server dopo il pagamento
-        console.log('Risposta dal server:', response.data);
-        console.log(nonce);
+
+        const responseString = response.data;
+
+        // Trova l'indice di inizio della stringa JSON
+        const startIndex = responseString.indexOf('{');
+
+        // Estrarre la parte della stringa JSON
+        const jsonString = responseString.substring(startIndex);
+
+        // Converti la stringa JSON in un oggetto JavaScript
+        const responseObject = JSON.parse(jsonString);
+
+        if (responseObject.success == true) {
+            this.$router.push({ name: 'confirmed_payment' }); // Reindirizza alla pagina di conferma pagamento
+        } else {
+            this.$router.push({ name: 'AppPaymentError' }); // Reindirizza alla pagina di errore pagamento
+        }
     })
     .catch(error => {
         // Gestisci gli errori durante la richiesta al server
         console.error('Errore durante il pagamento:', error);
+        this.$router.push({ name: 'AppPaymentError' }); // Reindirizza alla pagina di errore pagamento
     });
   }
   }
