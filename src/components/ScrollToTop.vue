@@ -23,7 +23,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
+@use '../styles/partials/variables' as *;
 a{
     color: white;
     font-size: 20px;
@@ -31,6 +31,7 @@ a{
 
 .btnUp{
     padding: 13px 13px;
+    border: 0.2px solid white;
     border-radius: 100%;
     background-color: #DA643F;
     position: fixed;
