@@ -1,41 +1,90 @@
 <script>
+import { store } from '@/store';
 export default {
-    name: 'AppPaymentError'
+     name: 'ConfirmedPayment',
+     data() {
+          return {
+               store,
+          }
+     }
 }
 </script>
 <template>
-    <div class="container-lg d-flex justify-content-center align-items-center" >
+     <div class="position">
+          <div class="box">
+               <div class="red-circle"></div>
+               <div class="inner-box text-center">
+                    <div class="card_title">Transazione Fallita</div>
+                    <div class="my-5">
+                         <div class="name">Nome...</div>
+                         <div class="email mt-2">Email...</div>
+                    </div>
+                    <div class="card_subtitle mb-5">Purtroppo il tuo pagamento non è andato a buon fine...</div>
 
-     <div class="row bg-dark p-3 d-flex justify-content-center flex-wrap m-5">
-          <div class="col-12 text-center">
-               <i class="fa-regular fa-circle-xmark text-danger py-4"></i>
+                    <!-- Reindirizzare alla pagina di pagamento -->
+                    <router-link class="back-payment" :to="{ name: 'payment' }">Torna al pagamento</router-link>
+               </div>
           </div>
-          <div class="col-12 text-center">
-               <h1 class="text-danger">Transazione Fallita</h1>
-          </div>
-          <div class="col-12 text-center pb-4">
-               <h5>Purtroppo il tuo pagamento non è andato a buon fine</h5>
-          </div>
-
-          <!-- reindirizzare alla pagina di pagamento -->
-          <div class="col-12 text-center pb-4">
-               <a href="/credentials">
-               <button  class="btn btn-outline-light">Torna indietro</button></a>
-          </div>
-
-
      </div>
-        
-    </div>
 </template>
 
 <style scoped lang="scss">
+.position {
+     width: 100%;
+     min-height: 100vh;
+     overflow: hidden;
+     padding: 2rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
 
-.row{
-     border: 5px solid red;
+.box {
+     position: relative;
+     width: 100%;
+     max-width: 1020px;
+     height: 640px;
+     backdrop-filter: blur(25px);
+     background-color: rgba(255, 255, 255, 0.05);
+     border-radius: 3.3rem;
+     box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
+}
 
-     .fa-circle-xmark{
-          font-size: 70px;
-     }
+.inner-box {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+}
+
+.red-circle {
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     background-color: red;
+     position: absolute;
+     top: 0;
+     left: 50%;
+     transform: translate(-50%, -50%);
+}
+
+.card_title {
+     font-size: 45px;
+}
+
+.card_subtitle {
+     font-size: 25px;
+     margin-top: 15px;
+}
+
+.back-payment {
+     background-color: #DA643F;
+     color: #fff;
+     text-decoration: none;
+     border-radius: 0.8rem;
+     margin-bottom: 2rem;
+     border: none;
+     cursor: pointer;
+     padding: 5px 10px;
 }
 </style>
