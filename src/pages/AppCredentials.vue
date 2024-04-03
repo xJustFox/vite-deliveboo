@@ -42,34 +42,6 @@ export default {
       clearInterval(this.intervalId);
     },
 
-    // Invio dei dati al Back-End
-    submitForm() {
-      // Se non ci sono errori di validazione, invia i dati del modulo al backend
-      if (Object.keys(this.errors).length === 0) {
-        // Costruisci l'oggetto dei dati da inviare al backend
-        const formDataToSend = {
-          name: this.formData.name,
-          email: this.formData.email,
-          delivery_address: this.formData.delivery_address,
-          phone_num: this.formData.phone_num
-        };
-
-        // GESTIRE API PER INVIO DATI
-
-        // // Invia i dati al backend tramite una richiesta HTTP POST
-        // axios.post('/api/submit-order', formDataToSend)
-        //   .then(response => {
-        //     // Gestisci la risposta dal backend
-        //     console.log(response.data);
-        //     // Esegui altre azioni necessarie dopo aver inviato i dati
-        //   })
-        //   .catch(error => {
-        //     // Gestisci gli errori durante l'invio dei dati
-        //     console.error(error);
-        //   });
-      }
-    },
-    
     // Validazione del Form
     validateForm() {
       this.errors = {};
@@ -103,7 +75,8 @@ export default {
       }
 
       if (Object.keys(this.errors).length === 0) {
-        this.submitForm();
+        // Reindirizza a una pagina utilizzando il router
+        this.$router.push('/payment');
       }
     }
   }
@@ -157,9 +130,8 @@ export default {
                   <div v-if="errors.phone_num" class="error">{{ errors.phone_num }}</div>
 
                   <!-- Utilizziare @click="validateForm()" per richiamare la funzione di validazione prima dell'invio dei dati -->
-                  <router-link class="sign-btn text-center text-decoration-none" :to="{name: 'payment'}">Prosegui al pagamento</router-link>
-                <!-- <router-link class="" :to="{ name: 'confirmed_payment'}">
-                  Prosegui al pagamento</router-link> -->
+                  <div class="sign-btn text-center text-decoration-none" @click="validateForm()">Prosegui al pagamento</div>
+                  <!-- <router-link class="sign-btn text-center text-decoration-none" :to="{name: 'payment'}">Prosegui al pagamento</router-link> -->
               </div>
             </form>
           </div>
