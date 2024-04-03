@@ -75,7 +75,7 @@ export default {
 
                 this.saveCart(); // Salva il carrello dopo l'aggiunta del prodotto
             } else {
-                this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello. Clicca il pulsante per tornare al ristorante precedente e proseguire con l\'ordine.');
+                this.showErrorModal('Non puoi aggiungere prodotti da ristoranti diversi allo stesso carrello. Clicca il pulsante per svuotare il carrello e proseguire con l\'ordine.');
             }
 
             this.store.getTotalPrice();
@@ -231,12 +231,13 @@ export default {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 9999;
     transition: transform 0.3s ease-in-out;
-    i{
+
+    i {
         color: #DA643F;
     }
 }
 
-.popup.show{
+.popup.show {
     transform: translateX(0%);
 }
 
