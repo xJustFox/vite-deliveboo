@@ -105,7 +105,6 @@ export default {
 }
 </script>
 <template>
-    <!-- Bootstrap inspired Braintree Hosted Fields example -->
     <div>
       <form class="needs-validation" novalidate="">
   
@@ -153,7 +152,7 @@ export default {
   
         <hr class="mb-4">
         <div class="text-center">
-          <button class="btn btn-primary btn-lg" type="submit">Pay with <span id="card-brand">Card</span></button>
+          <button class="btn btn-primary btn-lg" type="submit">Pay with <span>Card</span></button>
         </div>
       </form>
     </div>
@@ -174,28 +173,6 @@ export default {
   </template>
   
   <style lang="scss" scoped>
-  .toast {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 9999;
-}
 
-.bootstrap-basic {
-  background: white;
-}
-
-.braintree-hosted-fields-focused {
-  color: #495057;
-  background-color: #fff;
-  border-color: #80bdff;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.braintree-hosted-fields-focused.is-invalid {
-  border-color: #dc3545;
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-}
   </style>
   

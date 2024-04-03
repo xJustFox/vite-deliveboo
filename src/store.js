@@ -7,8 +7,6 @@ export const store = reactive({
     clientToken: null,
     braintreeError: null,
 
-
-
     getTotalPrice() {
         this.totalPrice = 0;
         let cart = JSON.parse(localStorage.getItem('cart')) || []; // Otteniamo il carrello dal localStorage
