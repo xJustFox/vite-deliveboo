@@ -39,7 +39,7 @@ export default {
                     </div>
                 </div>
 
-                <!-- Links section -->
+                <!-- Sezione links -->
                 <div class="col-lg-7 col-md-12 col-sm-12 d-flex flex-wrap py-5">
                     <div class="col-lg col-md-6 col-6 text-white">
                         <h5>Servizi</h5>
@@ -82,7 +82,7 @@ export default {
                     </div>
                 </div>
 
-                <!-- Subscribe section -->
+                <!-- Sezione socials -->
                 <div class="col-lg-2 col-md-12 col-sm-12 d-flex py-5 text-white">
                     <div>
                         <h5>Socials</h5>
