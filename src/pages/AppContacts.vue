@@ -51,8 +51,12 @@ export default {
                                 <img src="https://media.licdn.com/dms/image/D4D03AQGhHTQB-OXRsw/profile-displayphoto-shrink_200_200/0/1710708091527?e=1717632000&v=beta&t=vxqruO_FzRlvx_tISytEon99dnsiSD5gLUbo83zmZMc">
                                 <h5>Guido Roland Daversa Schiavoni</h5>
                             </a>   
+                            <a href="https://www.linkedin.com/in/alessandrotardio21/">
+                                <img src="https://media.licdn.com/dms/image/D4D03AQHyPiuHi1sLAg/profile-displayphoto-shrink_200_200/0/1674748379026?e=1717632000&v=beta&t=gzHzZvt4c9ovttTdChDEkEBL6bRXogrpKwTM1DgaK0s">
+                                <h5>Alessandro Tardio</h5>
+                            </a> 
                             <a href="https://www.linkedin.com/in/giovanni-d-ubaldo-976203254/">
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                                <img src="https://media.licdn.com/dms/image/D4D03AQEMRDfOaH5NCQ/profile-displayphoto-shrink_800_800/0/1712223401874?e=1717632000&v=beta&t=z5IwO5ieKgehSq08E9Q7vNUa5u-RWMrHP-02LM0APcc">
                                 <h5>Giovanni D'Ubaldo</h5>
                             </a>  
                             <a href="https://www.linkedin.com/in/fabio-muzzu-3a93332ba/">
@@ -79,21 +83,25 @@ h1 {
     font-size: 40px;
 }
 
-strong{
-    font-size:20px;
+strong {
+    font-size: 20px;
 }
-.col-md-10 , .col-12{
-    border-radius:20px;
+
+.col-md-10,
+.col-12 {
+    border-radius: 20px;
 }
-img{
-    width:150px;
-    margin-bottom:10px;
-    border-radius:50%;
-    border:1px solid #e5653e
+
+img {
+    width: 150px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 1px solid #e5653e
 }
-.d-flex{
-    a{
-        max-width:160px;
+
+.d-flex {
+    a {
+        max-width: 160px;
         text-align: center;
         text-decoration: none;
         color: #e5653e
