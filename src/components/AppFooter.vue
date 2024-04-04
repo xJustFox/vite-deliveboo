@@ -28,7 +28,7 @@ export default {
 }
 </script>
 <template>
-     <footer>
+     <footer v-if="$route.path  !== '/payment' && $route.path !== '/confirmed_payment' && $route.path !== '/payment-error'">
         <div class="container">
             <div class="row">
 

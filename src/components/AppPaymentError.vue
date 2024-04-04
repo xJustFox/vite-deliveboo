@@ -6,7 +6,16 @@ export default {
           return {
                store,
           }
-     }
+     },
+     mounted() {
+          this.loadUserData();
+     },
+     methods: {
+          loadUserData(){
+               const userData = JSON.parse(localStorage.getItem('userData'));
+               this.store.userData = userData;
+          }
+     },
 }
 </script>
 <template>
@@ -16,8 +25,9 @@ export default {
                <div class="inner-box text-center">
                     <div class="card_title">Transazione Fallita</div>
                     <div class="my-5">
-                         <div class="name">Nome...</div>
-                         <div class="email mt-2">Email...</div>
+                         <div class="name fw-bold fs-5">{{ this.store.userData.name}}</div>
+                         <div class="email fw-bold mt-2 fs-5">{{ this.store.userData.email}}</div>
+                         <div class="address fw-bold mt-2 fs-5">{{ this.store.userData.delivery_address}}</div>
                     </div>
                     <div class="card_subtitle mb-5">Purtroppo il tuo pagamento non è andato a buon fine...</div>
 
@@ -86,5 +96,10 @@ export default {
      border: none;
      cursor: pointer;
      padding: 5px 10px;
+
+     &:hover {
+        background-color: #fff;
+        color: #DA643F;
+    }
 }
 </style>

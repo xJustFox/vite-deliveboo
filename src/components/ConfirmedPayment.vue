@@ -6,7 +6,16 @@ export default {
         return {
             store,
         }
-    }
+    },
+    mounted() {
+          this.loadUserData();
+     },
+     methods: {
+          loadUserData(){
+               const userData = JSON.parse(localStorage.getItem('userData'));
+               this.store.userData = userData;
+          }
+     },
 }
 </script>
 
@@ -16,10 +25,11 @@ export default {
             <div class="green-circle"></div>
             <div class="inner-box text-center">
                 <div class="card_title">Transazione Riuscita</div>
-                <div class="card_subtitle">Grazie per aver effettuato l'ordine e per aver usato DeliveBoo!</div>
+                <div class="card_subtitle">Grazie per aver effettuato l'ordine e per aver scelto <span class="text-orange super-ocean">Delive</span><span class="text-gold super-ocean">Boo</span>!</div>
                 <div class="my-5">
-                    <div class="name">Nome...</div>
-                    <div class="email mt-2">Email...</div>
+                    <div class="name fw-bold fs-5">{{ this.store.userData.name}}</div>
+                    <div class="email fw-bold mt-2 fs-5">{{ this.store.userData.email}}</div>
+                    <div class="address fw-bold mt-2 fs-5">{{ this.store.userData.delivery_address}}</div>
                 </div>
                 <div class="card_subtitle mb-5">Il tuo ordine è in arrivo!</div>
                 <router-link class="back-home" :to="{name: 'home'}">Torna alla home</router-link>
@@ -29,6 +39,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use '../styles/generals.scss' as *;
 .position {
     width: 100%;
     min-height: 100vh;
@@ -86,5 +97,10 @@ export default {
     border: none;
     cursor: pointer;
     padding: 5px 10px;
+
+    &:hover {
+        background-color: #fff;
+        color: #DA643F;
+    }
 }
 </style>

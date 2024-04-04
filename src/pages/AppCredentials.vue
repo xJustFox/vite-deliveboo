@@ -1,8 +1,10 @@
 <script>
+import { store } from '../store.js';
 export default {
   name: 'AppCredentials',
   data() {
     return {
+      store,
       currentImageIndex: 0,
       images: [
         { src: "../../public/img/young-man.png", alt: "" },
@@ -76,8 +78,14 @@ export default {
 
       if (Object.keys(this.errors).length === 0) {
         // Reindirizza a una pagina utilizzando il router
+        this.store.userData = [];
+        this.store.userData = this.formData;
+        this.saveUserData();
         this.$router.push('/payment');
       }
+    },
+    saveUserData(){
+      localStorage.setItem("userData", JSON.stringify(this.store.userData))
     }
   }
 }
