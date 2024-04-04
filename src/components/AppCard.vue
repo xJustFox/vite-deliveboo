@@ -28,7 +28,6 @@ export default {
   },
   mounted() {
     this.putData();
-    console.log(this.order);
     this.getClientToken();
     this.loadCart();
     this.loadUserData();
