@@ -7,6 +7,17 @@ export default {
   data() {
     return {
       store,
+      order: {
+        restaurant_id: null,
+        name: '',
+        status: '',
+        email: '',
+        delivery_address: '',
+        phone_num: '',
+        price: '',
+        dishes: [],
+      },
+      errorMessage: '',
       currentCardBackground: Math.floor(Math.random()* 25 + 1),
       cardName: "",
       cardNumber: "",
@@ -16,7 +27,11 @@ export default {
     };
   },
   mounted() {
+    this.putData();
+    console.log(this.order);
     this.getClientToken();
+    this.loadCart();
+    this.loadUserData();
   },
   computed: {
     getCardType () {
@@ -40,10 +55,23 @@ export default {
     }
   },
   methods: {
+    putData(){
+      this.order.restaurant_id = this.store.cart[0].restaurant_id;
+      this.order.name = this.store.userData.name;
+      this.order.email = this.store.userData.email;
+      this.order.delivery_address = this.store.userData.delivery_address;
+      this.order.phone_num = this.store.userData.phone_num;
+      this.order.price = this.store.totalPrice;
+      this.order.dishes = this.store.cart;
+    },
+    loadUserData(){
+      const user = JSON.parse(localStorage.getItem('userData'));
+      this.store.userData = user;
+    },
     loadCart() {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         this.store.cart = cart;
-        console.log(cart);
+        this.store.getTotalPrice();
     },
     getClientToken() {
       axios.get(`${this.store.baseUrl}/api/braintree/client-token`)
@@ -113,8 +141,10 @@ export default {
         const startIndex = responseString.indexOf('{');
         const jsonString = responseString.substring(startIndex);
         const responseObject = JSON.parse(jsonString);
+        this.order.status = responseObject.success;
 
         if (responseObject.success == true) {
+            this.createOrder();
             this.$router.push({ name: 'confirmed_payment' }); // Reindirizza alla pagina di conferma pagamento
         } else {
             this.$router.push({ name: 'AppPaymentError' }); // Reindirizza alla pagina di errore pagamento
@@ -125,8 +155,26 @@ export default {
         console.error('Errore durante il pagamento:', error);
         this.$router.push({ name: 'AppPaymentError' }); // Reindirizza alla pagina di errore pagamento
     });
+  },
+  async createOrder() {
+      try {
+        const response = await axios.post(`${this.store.baseUrl}/api/orders`, this.order);
+        this.clearCart();
+        console.log(response.data.message); // Stampa il messaggio di successo dalla risposta
+        // Effettua altre azioni necessarie
+      } catch (error) {
+        if (error.response) {
+          this.errorMessage = error.response.data.message; // Imposta il messaggio di errore dalla risposta
+        } else {
+          this.errorMessage = 'Errore durante la richiesta.';
+        }
+      }
+    },
+  clearCart() {
+    this.store.cart = [];
+    localStorage.removeItem('cart');
   }
-  }
+}
 }
 </script>
 <template>
