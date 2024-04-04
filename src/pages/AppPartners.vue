@@ -1,6 +1,6 @@
 <script>
 export default {
-
+    name: 'AppPartners'
 }
 </script>
 
@@ -15,14 +15,14 @@ export default {
                         <div class="text-center text-white">
                             <img class="img-fluid" src="../../public/img/Logo.png" alt="">
                             <h1 class="super-ocean mt-5 mb-3">Entra a far parte della famiglia di <span class="txt-orange title">Delive</span><span class="txt-gold title">Boo</span></h1>
-                            <h5 class="mt-5 subtitle">Qui puoi gestire, modificare e creare i tuoi ristornanti con il relativo menù. hai a disposizione una dashboard per controllare l'andamento del tuo ristorante e dei singoli piatti.</h5>
+                            <h5 class="mt-5 subtitle">Qui puoi gestire, modificare e creare i tuoi ristornanti con il relativo menù. <br> Hai a disposizione una dashboard per controllare l'andamento del tuo ristorante e dei singoli piatti.</h5>
                         </div>
                     </div>
 
                     <!-- Sezione accedi e registrati -->
                     <div class="d-flex justify-content-center">
-                        <a class="btn my-btn" href="http://127.0.0.1:8000/login">Accedi</a>
-                        <a class="btn my-btn ms-3" href="http://127.0.0.1:8000/register">Registrati</a>
+                        <a class="btn my-btn fs-5 super-ocean" href="http://127.0.0.1:8000/login">Accedi</a>
+                        <a class="btn my-btn ms-3 fs-5 super-ocean" href="http://127.0.0.1:8000/register">Registrati</a>
                     </div>
                 </section>
 
@@ -149,6 +149,7 @@ export default {
     width: 150px;
     padding: 10px 5px;
     margin: 50px 0;
+    border-radius: 30px;
 
     &:hover {
         background-color: #fff;
