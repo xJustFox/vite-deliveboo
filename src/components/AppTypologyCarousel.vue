@@ -407,7 +407,6 @@ export default {
 
 .card {
     width: 100% !important;
-    padding: 0 5px;
     background-color: transparent;
     overflow: visible;
     width: 190px;
