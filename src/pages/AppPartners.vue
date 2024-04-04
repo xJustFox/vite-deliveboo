@@ -21,8 +21,8 @@ export default {
 
                     <!-- Sezione accedi e registrati -->
                     <div class="d-flex justify-content-center">
-                        <button class="btn my-btn">Accedi</button>
-                        <button class="btn my-btn ms-3">Registrati</button>
+                        <a class="btn my-btn" href="http://127.0.0.1:8000/login">Accedi</a>
+                        <a class="btn my-btn ms-3" href="http://127.0.0.1:8000/register">Registrati</a>
                     </div>
                 </section>
 
