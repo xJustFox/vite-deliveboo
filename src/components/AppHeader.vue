@@ -19,6 +19,10 @@ export default {
         {
           name: 'contacts',
           label: 'Contatti'
+        },
+        {
+          name: 'partners',
+          label: 'Partners'
         }
       ]
     }
@@ -31,7 +35,8 @@ export default {
 }
 </script>
 <template>
-  <header id="header" v-if="$route.path  !== '/payment' && $route.path !== '/confirmed_payment' && $route.path !== '/payment-error'">
+  <header id="header"
+    v-if="$route.path !== '/payment' && $route.path !== '/confirmed_payment' && $route.path !== '/payment-error'">
     <div class="container-fluid px-md-4 py-2 d-flex justify-content-between">
 
       <!-- Logo -->
