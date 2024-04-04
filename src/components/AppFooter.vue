@@ -41,7 +41,7 @@ export default {
 
                 <!-- Sezione links -->
                 <div class="col-lg-7 col-md-12 col-sm-12 d-flex flex-wrap py-5">
-                    <div class="col-lg col-md-6 col-6 text-white">
+                    <div class="col-lg col-md-6 col-6 text-white my_flex">
                         <h5>Servizi</h5>
                         <hr class="hr_footer">
                         <ul class="list-unstyled">
@@ -51,7 +51,7 @@ export default {
                             <li><a class="text-decoration-none" href="#">Norme sui cookie</a></li>
                         </ul>
                     </div>
-                    <div class="col-lg col-md-6 col-6 text-white">
+                    <div class="col-lg col-md-6 col-6 text-white my_flex">
                          <h5>Prodotti</h5>
                          <hr class="hr_footer">
                          <ul class="list-unstyled">
@@ -60,7 +60,7 @@ export default {
                              <li><a class="text-decoration-none" href="#">App Desktop</a></li>
                          </ul>
                     </div>
-                    <div class="col-lg col-md-6 col-6 text-white">
+                    <div class="col-lg col-md-6 col-6 text-white my_flex">
                          <h5>Supporto</h5>
                          <hr class="hr_footer">
                          <ul class="list-unstyled">
@@ -68,10 +68,10 @@ export default {
                              <li><a class="text-decoration-none" href="#">Location</a></li>
                              <li><a class="text-decoration-none" href="#">Centro assistenza</a></li>
                              <li><a class="text-decoration-none" href="#">Lavora con noi</a></li>
-                             <li><a class="text-decoration-none" href="#">Informazioni su DeliveBoo</a></li>
+                             <li><a class="text-decoration-none" href="#">Informazioni</a></li>
                          </ul>
                     </div>
-                    <div class="col-lg col-md-6 col-6 text-white">
+                    <div class="col-lg col-md-6 col-6 text-white my_flex">
                         <h5>Sito</h5>
                         <hr class="hr_footer">
                         <ul class="list-unstyled text-white">
@@ -83,7 +83,7 @@ export default {
                 </div>
 
                 <!-- Sezione socials -->
-                <div class="col-lg-2 col-md-12 col-sm-12 d-flex py-5 text-white">
+                <div class="col-lg-2 col-md-12 col-sm-12 d-flex py-5 text-white my_flex">
                     <div>
                         <h5>Socials</h5>
                         <div class="my-2">
@@ -153,6 +153,14 @@ footer{
 
     .hr_footer{
         width: 50%;
+    }
+
+    @media (max-width: 768px){
+        .my_flex{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     }
 
 }
