@@ -29,6 +29,7 @@ export default {
   },
   mounted() {
     this.loadCart();
+    this.store.getTotalPrice()
   },
   methods: {
     // Validazione del Form
@@ -68,13 +69,18 @@ export default {
         this.store.userData = [];
         this.store.userData = this.formData;
         this.saveUserData();
-        this.$router.push('/payment');
+        if(this.store.cart.length > 0) {
+          this.$router.push('/payment');
+        }
       }
+    },
+    saveCart() {
+        localStorage.setItem('cart', JSON.stringify(this.store.cart));
     },
     loadCart() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             this.store.cart = cart;
-        },
+    },
     saveUserData(){
       localStorage.setItem("userData", JSON.stringify(this.store.userData))
     },
@@ -93,14 +99,38 @@ export default {
 
         return image;
     },
-    getPriceProduct(price, quantity) {
-      // Calcoliamo il prezzo del singolo prodotto moltiplicando il prezzo per la quantità
-      return (price * quantity).toFixed(2).replace('.', ',');
+    // Incrementa la quantità del piatto
+    incrementQuantity(dish) {
+            dish.quantity++;
+
+            this.saveCart();
+            this.store.getTotalPrice();
+    },
+    // Decrementa la quantità del piatto
+    decrementQuantity(dish) {
+        if (dish.quantity > 1) {
+            dish.quantity--;
+
+            this.saveCart();
+            this.store.getTotalPrice();
+        }
     },
     removeFromCart(index) {
         this.store.cart.splice(index, 1); // Rimuove l'elemento dal carrello utilizzando l'indice
         this.saveCart(); // Salva il carrello dopo la rimozione dell'elemento
         this.store.getTotalPrice();
+    },
+    updateCart(index) {
+      // Assicura che la quantità non sia inferiore a 1
+      if (this.store.cart[index].quantity < 1) {
+          this.store.cart[index].quantity = 1;
+      }
+      this.saveCart();
+      this.store.getTotalPrice();
+    },
+    getPriceProduct(price, quantity) {
+      // Calcoliamo il prezzo del singolo prodotto moltiplicando il prezzo per la quantità
+      return (price * quantity).toFixed(2).replace('.', ',');
     },
   }
 }
@@ -153,7 +183,7 @@ export default {
                   <div v-if="errors.phone_num" class="error">{{ errors.phone_num }}</div>
 
                   <!-- Utilizziare @click="validateForm()" per richiamare la funzione di validazione prima dell'invio dei dati -->
-                  <div class="sign-btn text-center text-decoration-none" @click="validateForm()">Prosegui al pagamento</div>
+                  <button type="button" :class="this.store.cart.length <= 0 ? 'disabled' : 'btn'" class="btn sign-btn text-center text-decoration-none" @click="validateForm()">Prosegui al pagamento</button>
               </div>
             </form>
           </div>
