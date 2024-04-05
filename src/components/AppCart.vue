@@ -110,7 +110,6 @@ export default {
             </div>
         </div>
     </div>
-    
 </template>
 
 <style lang="scss" scoped>
