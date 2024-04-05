@@ -59,6 +59,7 @@ export default {
             // Controlla se il carrello è vuoto o se il ristorante del prodotto corrisponde al ristorante degli altri elementi nel carrello
             if (this.store.cart.length === 0 || this.store.cart[0].restaurant.slug === product.restaurant.slug) {
                 let found = false;
+                this.openPopup(product);
 
                 // Controlla se il prodotto è già presente nel carrello
                 this.store.cart.forEach((item) => {
@@ -186,7 +187,7 @@ export default {
                             </div>
 
                             
-                            <button class="add_btn btn" @click="addToCart(dish), openPopup(dish)">Aggiungi</button>
+                            <button class="add_btn btn" @click="addToCart(dish)">Aggiungi</button>
                         </div>
                     </div>
                 </div>
