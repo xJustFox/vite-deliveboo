@@ -63,4 +63,23 @@ const router = createRouter({
 
 });
 
+router.beforeEach((to, from, next) => {
+    if (to.name === 'credentials') {
+        // Verifica se l'utente sta cercando di accedere alla pagina di inserimento dei dati della carta
+        // Se l'utente sta andando alla pagina di inserimento dei dati della carta,
+        // controlla se ha completato il pagamento
+        if (from.name === 'payment') {
+            // Se l'utente non ha completato il pagamento, impedisci la navigazione
+            alert("Devi inserire i dati della carta per poter procedere al pagamento")
+            next(false)
+        } else {
+            // Se l'utente ha completato il pagamento, permetti la navigazione alla pagina di inserimento dei dati della carta
+            next()
+        }
+    } else {
+        // Per tutte le altre rotte, permetti la navigazione
+        next()
+    }
+});
+
 export default router;
