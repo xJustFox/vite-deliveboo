@@ -31,6 +31,7 @@ export default {
     this.getClientToken();
     this.loadCart();
     this.loadUserData();
+    this.store.getTotalPrice();
   },
   computed: {
     getCardType () {
@@ -172,7 +173,35 @@ export default {
   clearCart() {
     this.store.cart = [];
     localStorage.removeItem('cart');
-  }
+  },
+  incrementQuantity(dish) {
+            dish.quantity++;
+
+            this.saveCart();
+            this.store.getTotalPrice();
+    },
+    // Decrementa la quantità del piatto
+    decrementQuantity(dish) {
+        if (dish.quantity > 1) {
+            dish.quantity--;
+
+            this.saveCart();
+            this.store.getTotalPrice();
+        }
+    },
+    removeFromCart(index) {
+        this.store.cart.splice(index, 1); // Rimuove l'elemento dal carrello utilizzando l'indice
+        this.saveCart(); // Salva il carrello dopo la rimozione dell'elemento
+        this.store.getTotalPrice();
+    },
+    updateCart(index) {
+      // Assicura che la quantità non sia inferiore a 1
+      if (this.store.cart[index].quantity < 1) {
+          this.store.cart[index].quantity = 1;
+      }
+      this.saveCart();
+      this.store.getTotalPrice();
+    },
 }
 }
 </script>
@@ -241,7 +270,7 @@ export default {
           </div>
   
           <button class="card-form__button super-ocean" type="submit">
-            Prosegui
+            Paga € {{ this.store.totalPrice }}
           </button>
         </div>
       </form>
