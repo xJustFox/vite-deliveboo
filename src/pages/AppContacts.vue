@@ -57,7 +57,7 @@ export default {
 
                 <div class="d-flex flex-wrap flex-column flex-column-reverse flex-md-row">
                     <div class="col-12 col-md-2 d-flex justify-content-center align-items-center pb-4">
-                            <img class="tech" src="../../public/img/tech.png" alt="">
+                            <img class="tech" src="../../public/img/loghi-tech.png" alt="">
                     </div>
                     <div class="col-md-10  bg-dark p-4 d-flex flex-wrap my-5">
                         <h1 class="fw-bolder">Tecnologie Utilizzate </h1>

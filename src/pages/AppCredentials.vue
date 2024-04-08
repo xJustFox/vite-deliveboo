@@ -28,22 +28,10 @@ export default {
     };
   },
   mounted() {
-    this.startRotation();
+    this.loadCart();
+    this.store.getTotalPrice()
   },
   methods: {
-    moveSlider(index) {
-      this.stopRotation();
-      this.currentImageIndex = index;
-    },
-    startRotation() {
-      this.intervalId = setInterval(() => {
-        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-      }, 4000);
-    },
-    stopRotation() {
-      clearInterval(this.intervalId);
-    },
-
     // Validazione del Form
     validateForm() {
       this.errors = {};
@@ -81,12 +69,69 @@ export default {
         this.store.userData = [];
         this.store.userData = this.formData;
         this.saveUserData();
-        this.$router.push('/payment');
+        if(this.store.cart.length > 0) {
+          this.$router.push('/payment');
+        }
       }
+    },
+    saveCart() {
+        localStorage.setItem('cart', JSON.stringify(this.store.cart));
+    },
+    loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            this.store.cart = cart;
     },
     saveUserData(){
       localStorage.setItem("userData", JSON.stringify(this.store.userData))
-    }
+    },
+    getImage(img) {
+        let image;
+
+        if (img != null && img.includes('https') == false) {
+            image = `${this.store.baseUrl}/storage/${img}`;
+        }
+        else if (img.includes('https')){
+            image = img;
+        }
+        else {
+            image = 'https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg';
+        }
+
+        return image;
+    },
+    // Incrementa la quantità del piatto
+    incrementQuantity(dish) {
+            dish.quantity++;
+
+            this.saveCart();
+            this.store.getTotalPrice();
+    },
+    // Decrementa la quantità del piatto
+    decrementQuantity(dish) {
+        if (dish.quantity > 1) {
+            dish.quantity--;
+
+            this.saveCart();
+            this.store.getTotalPrice();
+        }
+    },
+    removeFromCart(index) {
+        this.store.cart.splice(index, 1); // Rimuove l'elemento dal carrello utilizzando l'indice
+        this.saveCart(); // Salva il carrello dopo la rimozione dell'elemento
+        this.store.getTotalPrice();
+    },
+    updateCart(index) {
+      // Assicura che la quantità non sia inferiore a 1
+      if (this.store.cart[index].quantity < 1) {
+          this.store.cart[index].quantity = 1;
+      }
+      this.saveCart();
+      this.store.getTotalPrice();
+    },
+    getPriceProduct(price, quantity) {
+      // Calcoliamo il prezzo del singolo prodotto moltiplicando il prezzo per la quantità
+      return (price * quantity).toFixed(2).replace('.', ',');
+    },
   }
 }
 </script>
@@ -138,28 +183,39 @@ export default {
                   <div v-if="errors.phone_num" class="error">{{ errors.phone_num }}</div>
 
                   <!-- Utilizziare @click="validateForm()" per richiamare la funzione di validazione prima dell'invio dei dati -->
-                  <div class="sign-btn text-center text-decoration-none" @click="validateForm()">Prosegui al pagamento</div>
-                  <!-- <router-link class="sign-btn text-center text-decoration-none" :to="{name: 'payment'}">Prosegui al pagamento</router-link> -->
+                  <button type="button" :class="this.store.cart.length <= 0 ? 'disabled' : 'btn'" class="btn sign-btn text-center text-decoration-none" @click="validateForm()">Prosegui al pagamento</button>
               </div>
             </form>
           </div>
 
-          <!-- CAROSELLO -->
-          <div class="carousel">
-            <div class="images-wrapper">
-              <img v-for="(image, index) in images" :src="image.src" :class="{ 'image': true, ['img-' + (index + 1)]: true, 'show': index === currentImageIndex }" :alt="image.alt" />
+          <!-- RIEPILOGO ORDINE -->
+          <div class="order">
+            <div class="overflow m-3 px-2">
+              <ul class=" list-unstyled" id="cart-items">
+                    <li class="text-white d-flex flex-column pt-3" v-for="(item, index) in this.store.cart" :key="index">
+                      <div class="row w-100">
+                          <div class="col-4 p-0">
+                              <img class="w-100" :src="getImage(item.image)" alt="">
+                          </div>
+                          <div class="col-8 p-0 position-relative">
+                              <div>{{ item.name }}</div>
+                              <div>{{ getPriceProduct(item.price, item.quantity)}} €</div>
+                              <!-- INPUT NUMBER SPAN -->
+                              <div class="counter">
+                                  <span class="min" @click="decrementQuantity(item)"><i class="fa-solid fa-minus"></i></span>
+                                  <span class="num">{{ item.quantity }}</span>
+                                  <span class="plus" @click="incrementQuantity(item)"><i class="fa-solid fa-plus"></i></span>
+                              </div>
+
+                              <div class="trash" @click="removeFromCart(index)"><i class="fa-solid fa-trash"></i></div>
+                          </div>
+                      </div>
+                      <hr>
+                    </li>
+                </ul>
             </div>
-
-            <div class="text-slider">
-              <div class="text-wrap">
-                <div class="text-group" :style="{ transform: 'translateY(' + (-currentImageIndex * 2.2) + 'rem)' }">
-                  <h2 v-for="(text, index) in texts" :key="index">{{ text }}</h2>
-                </div>
-              </div>
-
-              <div class="bullets">
-                <span v-for="(bullet, index) in bullets" :key="index" :class="{ 'active': index === currentImageIndex }" @click="moveSlider(index)" :data-value="index + 1"></span>
-              </div>
+              <div class="d-flex align-items-end justify-content-center">
+                <div class="text-white fs-5 fw-bold px-3 pt-4">Totale: {{this.store.totalPrice}}€</div>
               </div>
           </div>
         </div>
@@ -352,11 +408,11 @@ main.sign-up-mode .forms-wrap {
   left: 55%;
 }
 
-main.sign-up-mode .carousel {
+main.sign-up-mode .order {
   left: 0%;
 }
 
-.carousel {
+.order {
   position: absolute;
   height: 100%;
   width: 55%;
@@ -367,8 +423,54 @@ main.sign-up-mode .carousel {
   display: grid;
   grid-template-rows: auto 1fr;
   padding-bottom: 2rem;
-  overflow: hidden;
-  transition: 0.8s ease-in-out;
+
+  .overflow {
+    overflow-y: scroll;
+    height: 420px;
+  }
+
+  .counter{
+        max-width: 100px;
+        margin-top: 10px;
+        display: flex;
+        background-color: #DA643F;
+        border-radius: 5px;
+    
+        .min,
+        .num,
+        .plus{
+            width: calc(100% / 3);
+            padding: 5px 0px;
+            font-size: 15px;
+            text-align: center;
+            border-radius: 5px;
+
+            i{
+                vertical-align: middle;
+            }
+        }
+
+        .min:hover,
+        .plus:hover{
+            background-color: #96442c;
+            cursor: pointer;
+        }
+    }
+  
+    .trash{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        i{
+            font-size: larger;
+            &:hover{
+                color: rgb(169, 2, 2);
+                cursor: pointer;
+            }
+        }
+
+    }
 }
 
 .images-wrapper {
@@ -495,12 +597,11 @@ main.sign-up-mode .carousel {
     transform: translateX(0%);
   }
 
-  .carousel {
+  .order {
     position: revert;
     height: auto;
     width: 100%;
     padding: 3rem 2rem;
-    display: flex;
   }
 
   .images-wrapper {
@@ -525,7 +626,7 @@ main.sign-up-mode .carousel {
     padding: 1rem;
   }
 
-  .carousel {
+  .order {
     padding: 1.5rem 1rem;
     border-radius: 1.6rem;
   }
