@@ -28,12 +28,12 @@ export default {
 
 
                 <!-- Sezione esposizione dei grafici interattivi -->
-                <div class="col-sm-12 col-md-6 section_margin">
-                    <div class="text-white text-center">
-                        <h4>***Sezione grafici***</h4>
+                <div class="col-sm-12 col-md-12 col-lg-6 homepage_chart">
+                    <div>
+                        <img class="w-100 img-fluid rounded" src="../../public/img/chart_1.png" alt="">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 section_margin">
+                <div class="col-sm-12 col-md-12 col-lg-6 section_margin">
                     <div class="text-white">
                         <h4>Grafici interattivi: prendi il controllo del tuo ristorante con <span class="txt-orange">Delive</span><span class="txt-gold">Boo</span></h4>
                         <p>Con i grafici interattivi di DeliveBoo, hai una finestra cristallina sul tuo ristorante. Monitora vendite, clienti, tempi di attesa e altro ancora, prendendo decisioni informate per ottimizzare il tuo business.</p>
@@ -81,7 +81,7 @@ export default {
                 </div>
 
                 <!-- Sezione grafici profitti -->
-                <div class="col-sm-12 col-md-6 section_margin">
+                <div class="col-sm-12 col-md-12 col-lg-6 section_margin">
                     <div class="text-white">
                         <h4>Come <span class="txt-orange">Delive</span><span class="txt-gold">Boo</span> aumenta i tuoi profitti</h4>
                         <p>Deliveboo è la piattaforma di food delivery più innovativa e conveniente sul mercato, progettata per aumentare i profitti del tuo ristorante in modo significativo rispetto ai concorrenti.</p>
@@ -92,9 +92,9 @@ export default {
                         <p><i class="fas fa-bullhorn me-2 txt-gold"></i><span class="txt-gold">Marketing mirato:</span> Pruomoviamo il tuo ristorante attraverso campagne di marketing mirate sui social media e canali di marketing online, aumentando la consapevolezza del tuo brand e attirando nuovi clienti.</p>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 section_margin">
-                    <div class="text-white text-center">
-                        <h4>***Sezione grafici***</h4>
+                <div class="col-sm-12 col-md-12 col-lg-6 homepage_chart last_chart">
+                    <div>
+                        <img class="w-100 img-fluid rounded" src="../../public/img/chart_2.png" alt="">
                     </div>
                 </div>
                 
@@ -154,6 +154,20 @@ export default {
     &:hover {
         background-color: #fff;
         color: #DA643F;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .homepage_chart {
+      margin: 150px 0px;
+      display: flex;
+      align-items: center;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .last_chart {
+      margin-bottom: 150px;
     }
 }
 </style>
