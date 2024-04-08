@@ -60,7 +60,7 @@ export default {
       // Phone Num
       if (!this.formData.phone_num) {
         this.errors.phone_num = 'Il campo numero di telefono è obbligatorio.';
-      } else if (this.formData.phone_num.length < 5 || this.formData.phone_num.length > 30) {
+      } else if (this.formData.phone_num.length < 8 || this.formData.phone_num.length > 30) {
         this.errors.phone_num = 'Il numero di telefono deve essere lungo tra 8 e 30 caratteri.';
       }
 
