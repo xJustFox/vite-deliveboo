@@ -14,6 +14,9 @@ export default {
           loadUserData(){
                const userData = JSON.parse(localStorage.getItem('userData'));
                this.store.userData = userData;
+          },
+          refreshPage(){
+               window.location.reload();
           }
      },
 }
@@ -32,7 +35,9 @@ export default {
                     <div class="card_subtitle mb-5">Purtroppo il tuo pagamento non è andato a buon fine...</div>
 
                     <!-- Reindirizzare alla pagina di pagamento -->
-                    <router-link class="back-payment" :to="{ name: 'payment' }">Torna al pagamento</router-link>
+                    <div @click="refreshPage">
+                         <router-link class="back-payment" :to="{ name: 'credentials' }">Torna al check out</router-link>
+                    </div>
                </div>
           </div>
      </div>
