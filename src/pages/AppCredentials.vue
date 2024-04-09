@@ -195,7 +195,7 @@ export default {
                     <li class="text-white d-flex flex-column pt-3" v-for="(item, index) in this.store.cart" :key="index">
                       <div class="row w-100">
                           <div class="col-4 p-0">
-                              <img class="w-100" :src="getImage(item.image)" alt="">
+                              <img class="w-100 rounded-4 pe-2" :src="getImage(item.image)" alt="">
                           </div>
                           <div class="col-8 p-0 position-relative">
                               <div>{{ item.name }}</div>
