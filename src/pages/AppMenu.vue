@@ -168,7 +168,7 @@ export default {
                 <div class="card h-100">
                     <div>
                         <div v-if="dish.image != null" class="text-center">
-                            <img class="img-fluid" :src="getImage(dish.image)" alt="">
+                            <img class="img-fluid menu_border" :src="getImage(dish.image)" alt="">
                         </div>
                         <div class="card__title mt-5">
                             <h2>{{dish.name}}</h2>
@@ -242,7 +242,9 @@ export default {
     transform: translateX(0%);
 }
 
-
+.menu_border{
+    border-radius: 10px;
+}
 
 .jumbotron {
     padding: 2rem 1rem;

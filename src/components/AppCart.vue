@@ -87,7 +87,7 @@ export default {
                   <li class="text-white d-flex flex-column" v-for="(item, index) in this.store.cart" :key="index">
                     <div class="row w-100">
                         <div class="col-4 p-0">
-                            <img class="w-100 px-2" :src="getImage(item.image)" alt="">
+                            <img class="w-100 px-2 chart_border" :src="getImage(item.image)" alt="">
                         </div>
                         <div class="col-8 p-0 position-relative">
                             <div>{{ item.name }}</div>
@@ -214,5 +214,9 @@ export default {
     a.check-out {
         text-decoration: none;
     }
+}
+
+.chart_border{
+    border-radius: 15%;
 }
 </style>
