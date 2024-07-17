@@ -78,23 +78,23 @@ export default {
                         
                         <div class="d-flex justify-content-around py-4 align-items-center flex-column flex-lg-row cont">
                             <a class="text-orange" href="https://www.linkedin.com/in/guido-roland-daversa-schiavoni-50143524a/">
-                                <img src="https://media.licdn.com/dms/image/D4D03AQGhHTQB-OXRsw/profile-displayphoto-shrink_200_200/0/1710708091527?e=1717632000&v=beta&t=vxqruO_FzRlvx_tISytEon99dnsiSD5gLUbo83zmZMc">
+                                <img src="../../public/img/avatar/dody.jpg">
                                 <h5>Guido Roland Daversa Schiavoni</h5>
                             </a>   
                             <a class="text-orange" href="https://www.linkedin.com/in/alessandrotardio21/">
-                                <img src="https://media.licdn.com/dms/image/D4D03AQHyPiuHi1sLAg/profile-displayphoto-shrink_200_200/0/1674748379026?e=1717632000&v=beta&t=gzHzZvt4c9ovttTdChDEkEBL6bRXogrpKwTM1DgaK0s">
+                                <img src="../../public/img/avatar/alessandro.jpg">
                                 <h5>Alessandro Tardio</h5>
                             </a> 
                             <a class="text-orange" href="https://www.linkedin.com/in/giovanni-d-ubaldo-976203254/">
-                                <img src="https://media.licdn.com/dms/image/D4D03AQEMRDfOaH5NCQ/profile-displayphoto-shrink_800_800/0/1712223401874?e=1717632000&v=beta&t=z5IwO5ieKgehSq08E9Q7vNUa5u-RWMrHP-02LM0APcc">
+                                <img src="../../public/img/avatar/giovanni.jpg">
                                 <h5>Giovanni D'Ubaldo</h5>
                             </a>  
                             <a class="text-orange" href="https://www.linkedin.com/in/fabio-muzzu-3a93332ba/">
-                                <img src="https://media.licdn.com/dms/image/D4D03AQHSa8DWpZyG0A/profile-displayphoto-shrink_200_200/0/1710258214637?e=1717632000&v=beta&t=fHpsxtXF-f1fzH30BXYIs0-Ac45x3asOjUXOr0JyKhU">
+                                <img src="../../public/img/avatar/fabio.jpg">
                                 <h5>Fabio Muzzu</h5>
                             </a>  
                             <a class="text-orange" href="https://www.linkedin.com/in/tomas-darienko-5a8b63140/">
-                                <img src="https://media.licdn.com/dms/image/D4D03AQFOjsPMiLEzDw/profile-displayphoto-shrink_800_800/0/1710519768941?e=1717632000&v=beta&t=o64OeifPLQ7QfCsjsrm2ERUICLNbTquv3PTu79OSNLA">
+                                <img src="../../public/img/avatar/tomas.jpg">
                                 <h5>Tomas Darienko</h5>
                             </a>                       
                         </div>
